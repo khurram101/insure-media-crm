@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: insure-media-crm
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: insure-media-db
+          property: connectionString
+
+databases:
+  - name: insure-media-db
+    databaseName: insurecrm
+    plan: free

@@ -230,6 +230,7 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 .page{display:none;animation:fadeUp .22s ease both}
 .page.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ─── KPI CARDS ──────────────────────────────────────── */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-bottom:24px}
@@ -557,9 +558,15 @@ select option{background:#141929}
       <label>Password</label>
       <input type="password" id="p" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
-    <button class="btn btn-primary btn-full" onclick="doLogin()">Sign In</button>
+    <button class="btn btn-primary btn-full" id="loginBtn" onclick="doLogin()">Sign In</button>
     <div class="login-error" id="loginErr"></div>
   </div>
+</div>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" style="display:none;position:fixed;inset:0;background:rgba(9,11,18,.88);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:14px">
+  <div style="width:36px;height:36px;border:3px solid rgba(79,142,247,.2);border-top-color:#4f8ef7;border-radius:50%;animation:spin .7s linear infinite"></div>
+  <div style="color:#8b90a0;font-size:13px;letter-spacing:.5px">Loading data…</div>
 </div>
 
 <!-- APP -->
@@ -971,10 +978,6 @@ select option{background:#141929}
 
 <script>
 // ===== CONSTANTS =====
-var CREDS = {
-  admin: {password:'Admin@2024', role:'admin'},
-  manager: {password:'Manager@2024', role:'manager'}
-};
 
 var BASE_SALARY = 50000;
 var PUNCT_BONUS = 10000;
@@ -1011,36 +1014,19 @@ var E = [], A = [], J = [], S = [], X = [], C = [], P = [], R = [];
 var chartSalesInst = null, chartExpInst = null, chartSalaryInst = null;
 
 // ===== STORAGE =====
-function loadData() {
-  E = JSON.parse(localStorage.getItem('crm2_emp') || '[]');
-  A = JSON.parse(localStorage.getItem('crm2_att') || '[]');
-  J = JSON.parse(localStorage.getItem('crm2_adj') || '[]');
-  S = JSON.parse(localStorage.getItem('crm2_sls') || '[]');
-  X = JSON.parse(localStorage.getItem('crm2_exp') || '[]');
-  C = JSON.parse(localStorage.getItem('crm2_cats') || '[]');
-  P = JSON.parse(localStorage.getItem('crm2_jobs') || '[]');
-  R = JSON.parse(localStorage.getItem('crm2_rec')  || '[]');
-  // Seed default recurring expenses; migrate if missing entries
-  var recSeeds = [
-    {id:'rec_rent_01',     name:'Office Rent', category:'Rent',      amount:0, dayOfMonth:5, notes:'Monthly office rent due on the 5th'},
-    {id:'rec_electric_01', name:'Electricity', category:'Utilities', amount:0, dayOfMonth:5, notes:'Monthly electricity bill'},
-    {id:'rec_internet_01', name:'Internet',    category:'Utilities', amount:0, dayOfMonth:5, notes:'Monthly internet bill'}
-  ];
-  recSeeds.forEach(function(seed){
-    if (!R.find(function(r){return r.id===seed.id;})) R.push(seed);
-  });
-  localStorage.setItem('crm2_rec', JSON.stringify(R));
+async function loadData() {
+  var res = await fetch('/api/data');
+  var d = await res.json();
+  E = d.E || []; A = d.A || []; J = d.J || []; S = d.S || [];
+  X = d.X || []; C = d.C || []; P = d.P || []; R = d.R || [];
 }
 
 function saveData() {
-  localStorage.setItem('crm2_emp', JSON.stringify(E));
-  localStorage.setItem('crm2_att', JSON.stringify(A));
-  localStorage.setItem('crm2_adj', JSON.stringify(J));
-  localStorage.setItem('crm2_sls', JSON.stringify(S));
-  localStorage.setItem('crm2_exp', JSON.stringify(X));
-  localStorage.setItem('crm2_cats', JSON.stringify(C));
-  localStorage.setItem('crm2_jobs', JSON.stringify(P));
-  localStorage.setItem('crm2_rec',  JSON.stringify(R));
+  fetch('/api/data', {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({E:E, A:A, J:J, S:S, X:X, C:C, P:P, R:R})
+  }).catch(function(e){ console.error('Save failed:', e); });
   flashSaved();
 }
 
@@ -1051,36 +1037,49 @@ function flashSaved() {
 }
 
 // ===== AUTH =====
-function doLogin() {
+async function doLogin() {
   var u = document.getElementById('u').value.trim();
   var p = document.getElementById('p').value;
   var err = document.getElementById('loginErr');
-  var found = false;
-  for (var key in CREDS) {
-    if (key === u && CREDS[key].password === p) {
-      currentUser = key;
-      currentRole = CREDS[key].role;
-      found = true;
-      break;
-    }
-  }
-  if (!found) {
-    err.textContent = 'Invalid username or password.';
-    return;
-  }
+  var btn = document.getElementById('loginBtn');
   err.textContent = '';
-  document.getElementById('login').style.display = 'none';
-  var app = document.getElementById('app');
-  app.style.display = 'flex';
-  app.style.flexDirection = 'column';
-  app.style.minHeight = '100vh';
-  document.getElementById('topUser').textContent = currentUser;
-  var roleEl = document.getElementById('topRole');
-  roleEl.textContent = currentRole;
-  roleEl.className = 'role-badge role-' + currentRole;
-  loadData();
-  setupForRole();
-  showTab('dashboard');
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+  try {
+    var res = await fetch('/api/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({username: u, password: p})
+    });
+    var data = await res.json();
+    if (!data.ok) {
+      err.textContent = data.error || 'Invalid username or password.';
+      return;
+    }
+    currentUser = u;
+    currentRole = data.role;
+    document.getElementById('login').style.display = 'none';
+    var appEl = document.getElementById('app');
+    appEl.style.display = 'flex';
+    appEl.style.flexDirection = 'column';
+    appEl.style.minHeight = '100vh';
+    document.getElementById('topUser').textContent = currentUser;
+    var roleEl = document.getElementById('topRole');
+    roleEl.textContent = currentRole;
+    roleEl.className = 'role-badge role-' + currentRole;
+    // Show loading overlay while fetching data
+    var overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.style.display = 'flex';
+    await loadData();
+    if (overlay) overlay.style.display = 'none';
+    setupForRole();
+    showTab('dashboard');
+  } catch(e) {
+    err.textContent = 'Connection error. Please try again.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Sign In';
+  }
 }
 
 function doLogout() {
@@ -2504,22 +2503,5 @@ document.getElementById('salMonth').addEventListener('change', function(){render
 
 <!-- Chart.js CDN — placed at end of body after all scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script>
-// ── HCS Preload: seed localStorage (runs once per version) ───
-(function(){
-  if (localStorage.getItem('crm2_hcs_v2')) return; // already loaded
-  // clear any stale flags from older deploys
-  localStorage.removeItem('crm2_hcs_v1');
-  localStorage.setItem('crm2_hcs_v2','1');
-  var seed = {"E":[{"id":"sx8tw3d9h","name":"Jerry","role":"Sales Agent","salary":50000,"commission":0},{"id":"n00t3mbcp","name":"Nayab Malik","role":"Sales Agent","salary":50000,"commission":0},{"id":"91bddwor4","name":"Shoaib Akhtar","role":"Sales Agent","salary":50000,"commission":0},{"id":"xtklmjw5f","name":"Daud Mansha","role":"Sales Agent","salary":50000,"commission":0},{"id":"vupa0hyy1","name":"Amous John","role":"Sales Agent","salary":50000,"commission":0}],"A":[{"id":"fc47pqocs","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-10","status":"On time","loggedBy":"admin"},{"id":"3g7e1lss1","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-11","status":"On time","loggedBy":"admin"},{"id":"n52bourl9","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-12","status":"On time","loggedBy":"admin"},{"id":"c0letreu4","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-13","status":"On time","loggedBy":"admin"},{"id":"kaikfrqao","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-16","status":"On time","loggedBy":"admin"},{"id":"78g1h0zqm","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-17","status":"On time","loggedBy":"admin"},{"id":"jyojceu4j","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-18","status":"On time","loggedBy":"admin"},{"id":"r3y65bwpo","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"p4j9rcmif","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-20","status":"Late","loggedBy":"admin"},{"id":"si9y2xkby","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-10","status":"On time","loggedBy":"admin"},{"id":"5gmmy0xdh","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-11","status":"On time","loggedBy":"admin"},{"id":"x4ub0vtju","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-12","status":"Late","loggedBy":"admin"},{"id":"30tlnd5b7","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-13","status":"On time","loggedBy":"admin"},{"id":"0tpkgpvdi","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-16","status":"On time","loggedBy":"admin"},{"id":"76b8u19jx","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-17","status":"On time","loggedBy":"admin"},{"id":"cwkm63ie6","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-18","status":"On time","loggedBy":"admin"},{"id":"9i8ee8oj4","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"khtydknmt","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-20","status":"Late","loggedBy":"admin"},{"id":"0ky4crkgd","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-10","status":"On time","loggedBy":"admin"},{"id":"r1x0d63dk","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-11","status":"On time","loggedBy":"admin"},{"id":"zuzztk82j","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-12","status":"On time","loggedBy":"admin"},{"id":"2q145b68j","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-13","status":"Absent","loggedBy":"admin"},{"id":"pmkv2phz9","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-16","status":"On time","loggedBy":"admin"},{"id":"nasnr2b03","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-17","status":"On time","loggedBy":"admin"},{"id":"9mot5j7ix","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-18","status":"Late","loggedBy":"admin"},{"id":"tef92jjti","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"dn6c2rmn0","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-20","status":"Late","loggedBy":"admin"},{"id":"dk6gfibqw","empId":"xtklmjw5f","empName":"Daud Mansha","date":"2026-03-18","status":"On time","loggedBy":"admin"},{"id":"77p4r122k","empId":"xtklmjw5f","empName":"Daud Mansha","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"uiw5x01fq","empId":"xtklmjw5f","empName":"Daud Mansha","date":"2026-03-20","status":"On time","loggedBy":"admin"},{"id":"q68a16n4a","empId":"vupa0hyy1","empName":"Amous John","date":"2026-03-18","status":"On time","loggedBy":"admin"},{"id":"a7vvahla6","empId":"vupa0hyy1","empName":"Amous John","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"bqbpr6iup","empId":"vupa0hyy1","empName":"Amous John","date":"2026-03-20","status":"Late","loggedBy":"admin"}],"J":[],"S":[],"X":[],"C":[],"P":[{"id":"b67wtnrfl","title":"Sales Agent"}],"exportedAt":"2026-03-20T17:15:18.829062Z"};
-  localStorage.setItem('crm2_emp',  JSON.stringify(seed.E));
-  localStorage.setItem('crm2_att',  JSON.stringify(seed.A));
-  localStorage.setItem('crm2_adj',  JSON.stringify(seed.J));
-  localStorage.setItem('crm2_sls',  JSON.stringify(seed.S));
-  localStorage.setItem('crm2_exp',  JSON.stringify(seed.X));
-  localStorage.setItem('crm2_cats', JSON.stringify(seed.C));
-  localStorage.setItem('crm2_jobs', JSON.stringify(seed.P));
-})();
-</script>
 </body>
 </html>
