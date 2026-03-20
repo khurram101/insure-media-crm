@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insure Media Group</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090b12;--bg2:#0f1420;--bg3:#141929;--bg4:#1a2035;
+  --ac:#4f8ef7;--ac2:#3a7ef0;--green:#2ecc8a;--red:#e05454;--amber:#f0a030;--purple:#9b7ff0;
+  --text:#eef0f8;--text2:#7a82a0;--text3:#4a5270;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.10);
+  --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.4);
+  --shadow-md:0 8px 32px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.3);
+  --shadow-lg:0 24px 64px rgba(0,0,0,.6),0 8px 24px rgba(0,0,0,.4);
+  --glow-ac:0 0 24px rgba(79,142,247,.18);
+  --glass:rgba(15,20,32,.7);
+  --glass2:rgba(20,25,41,.6);
+  --radius:14px;--radius-sm:9px;--radius-xs:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  font-size:14px;
+  line-height:1.6;
+  min-height:100%;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 70% 55% at 15% -5%,rgba(79,142,247,.10) 0%,transparent 55%),
+    radial-gradient(ellipse 55% 45% at 88% 95%,rgba(155,127,240,.08) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 30% at 60% 40%,rgba(46,204,138,.04) 0%,transparent 50%);
+  pointer-events:none;z-index:0;
+}
+input,select,textarea,button{font-family:var(--font);font-size:14px;color:inherit}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.14)}
+
+/* ─── LOGIN ─────────────────────────────────────────── */
+#login{
+  display:flex;align-items:center;justify-content:center;min-height:100vh;
+  background:var(--bg);position:relative;overflow:hidden;
+}
+#login::after{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234f8ef7' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;opacity:.4;
+}
+.login-box{
+  background:var(--glass);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border:1px solid var(--border2);
+  border-radius:22px;
+  padding:48px 44px;
+  width:400px;
+  box-shadow:var(--shadow-lg),inset 0 1px 0 rgba(255,255,255,.07);
+  position:relative;z-index:1;
+}
+.login-logo{
+  width:48px;height:48px;border-radius:14px;
+  background:linear-gradient(135deg,var(--ac),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  box-shadow:0 8px 24px rgba(79,142,247,.35);
+  font-size:22px;font-weight:800;color:#fff;letter-spacing:-1px;
+}
+.login-brand{
+  font-size:26px;font-weight:700;
+  background:linear-gradient(135deg,#fff 30%,rgba(255,255,255,.55));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:6px;text-align:center;letter-spacing:-.5px;
+}
+.login-sub{color:var(--text2);text-align:center;margin-bottom:36px;font-size:13.5px}
+.field{margin-bottom:18px}
+.field label{
+  display:block;margin-bottom:7px;color:var(--text2);
+  font-size:11.5px;text-transform:uppercase;letter-spacing:.7px;font-weight:600;
+}
+.field input{
+  width:100%;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  padding:12px 16px;color:var(--text);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.field input::placeholder{color:var(--text3)}
+.field input:focus{
+  border-color:rgba(79,142,247,.5);
+  box-shadow:0 0 0 3px rgba(79,142,247,.12);
+}
+.login-error{color:var(--red);font-size:13px;margin-top:10px;text-align:center;min-height:20px;font-weight:500}
+
+/* ─── BUTTONS ────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:10px 18px;border-radius:var(--radius-sm);border:none;
+  cursor:pointer;font-weight:600;font-size:13.5px;
+  transition:transform .15s,box-shadow .15s,opacity .15s,background .2s;
+  position:relative;white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn:hover{opacity:.92}
+.btn-primary{
+  background:linear-gradient(135deg,var(--ac),var(--ac2));
+  color:#fff;
+  box-shadow:0 4px 16px rgba(79,142,247,.30),inset 0 1px 0 rgba(255,255,255,.15);
+}
+.btn-primary:hover{box-shadow:0 6px 20px rgba(79,142,247,.40),inset 0 1px 0 rgba(255,255,255,.15)}
+.btn-sm{padding:6px 13px;font-size:12.5px;border-radius:var(--radius-xs)}
+.btn-danger{
+  background:linear-gradient(135deg,#e05454,#c43a3a);
+  color:#fff;
+  box-shadow:0 3px 10px rgba(224,84,84,.25),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn-ghost{
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  border:1px solid var(--border2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.14)}
+.btn-green{
+  background:linear-gradient(135deg,var(--green),#20b070);
+  color:#0a1810;font-weight:700;
+  box-shadow:0 4px 16px rgba(46,204,138,.25),inset 0 1px 0 rgba(255,255,255,.15);
+}
+.btn-full{width:100%;justify-content:center;padding:13px 18px;font-size:15px}
+
+/* ─── APP SHELL ──────────────────────────────────────── */
+#app{display:none;min-height:100vh;flex-direction:column;position:relative;z-index:1}
+
+/* Topbar */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(9,11,18,.75);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  height:58px;display:flex;align-items:center;padding:0 24px;gap:10px;
+  box-shadow:0 1px 0 rgba(79,142,247,.07);
+}
+.brand{
+  font-weight:800;font-size:17px;letter-spacing:-.4px;
+  background:linear-gradient(135deg,#fff 40%,rgba(255,255,255,.5));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-right:auto;display:flex;align-items:center;gap:10px;
+}
+.brand-icon{
+  width:28px;height:28px;border-radius:8px;
+  background:linear-gradient(135deg,var(--ac),var(--purple));
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#fff;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(79,142,247,.3);
+}
+.saved-indicator{
+  display:flex;align-items:center;gap:5px;
+  font-size:12px;color:var(--green);font-family:var(--mono);
+  opacity:0;transition:opacity .4s;
+  background:rgba(46,204,138,.08);border:1px solid rgba(46,204,138,.2);
+  padding:3px 10px;border-radius:20px;
+}
+.saved-indicator::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block}
+.user-pill{
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border2);
+  border-radius:24px;padding:5px 14px;font-size:12.5px;
+  display:flex;align-items:center;gap:7px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+}
+.role-badge{
+  font-size:10px;padding:2px 8px;border-radius:20px;
+  font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+}
+.role-admin{background:rgba(79,142,247,.18);color:var(--ac);border:1px solid rgba(79,142,247,.2)}
+.role-manager{background:rgba(155,127,240,.18);color:var(--purple);border:1px solid rgba(155,127,240,.2)}
+
+/* Layout */
+.layout{display:flex;flex:1;min-height:calc(100vh - 58px)}
+
+/* Sidebar */
+.sidebar{
+  width:228px;flex-shrink:0;
+  background:rgba(9,11,18,.6);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-right:1px solid var(--border);
+  padding:20px 12px;
+  position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;
+}
+.nav-section{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:600;padding:4px 10px 8px;margin-top:4px}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;
+  color:var(--text2);cursor:pointer;
+  transition:all .18s;
+  border-radius:var(--radius-sm);
+  font-weight:500;font-size:13.5px;
+  margin-bottom:2px;
+  position:relative;
+}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav-item.active{
+  color:#fff;
+  background:linear-gradient(135deg,rgba(79,142,247,.18),rgba(79,142,247,.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 8px rgba(0,0,0,.2);
+}
+.nav-item.active::before{
+  content:'';
+  position:absolute;left:0;top:20%;bottom:20%;
+  width:3px;border-radius:0 3px 3px 0;
+  background:linear-gradient(to bottom,var(--ac),var(--purple));
+  box-shadow:0 0 8px rgba(79,142,247,.5);
+}
+.nav-item svg{flex-shrink:0;opacity:.55;transition:opacity .18s}
+.nav-item:hover svg{opacity:.8}
+.nav-item.active svg{opacity:1}
+
+/* Main */
+.main{flex:1;padding:28px 28px 48px;overflow-x:hidden;position:relative;z-index:1}
+.page{display:none;animation:fadeUp .22s ease both}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── KPI CARDS ──────────────────────────────────────── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-bottom:24px}
+.kpi-card{
+  background:var(--glass);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px 22px 20px;
+  position:relative;overflow:hidden;
+  box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.05);
+  transition:transform .2s,box-shadow .2s;
+}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md),inset 0 1px 0 rgba(255,255,255,.05)}
+.kpi-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--ac),var(--purple));
+  opacity:.7;border-radius:var(--radius) var(--radius) 0 0;
+}
+.kpi-label{font-size:11.5px;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;font-weight:600;margin-bottom:10px}
+.kpi-value{font-size:28px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;line-height:1}
+.kpi-sub{font-size:12px;color:var(--text3);margin-top:6px;font-weight:500}
+
+/* ─── CARDS ──────────────────────────────────────────── */
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-radius:var(--radius);margin-bottom:20px;
+  box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.04);
+  overflow:hidden;
+}
+.card-header{
+  padding:18px 22px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:rgba(255,255,255,.018);
+}
+.card-title{font-weight:700;font-size:14.5px;letter-spacing:-.2px}
+.card-body{padding:22px}
+
+/* ─── CHARTS ─────────────────────────────────────────── */
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:900px){.charts-row{grid-template-columns:1fr}}
+.chart-wrap{
+  background:var(--glass);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-radius:var(--radius);padding:22px;
+  box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.chart-title{font-weight:700;font-size:14px;letter-spacing:-.2px;margin-bottom:18px;color:var(--text)}
+canvas{max-height:260px}
+
+/* ─── TABLES ─────────────────────────────────────────── */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead{background:rgba(255,255,255,.02)}
+th{
+  text-align:left;padding:11px 16px;
+  font-size:11px;color:var(--text2);
+  text-transform:uppercase;letter-spacing:.7px;
+  border-bottom:1px solid var(--border2);font-weight:600;white-space:nowrap;
+}
+td{
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  vertical-align:middle;font-size:13.5px;
+}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .12s}
+tbody tr:hover td{background:rgba(255,255,255,.032)}
+
+/* ─── FORMS ──────────────────────────────────────────── */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px;align-items:end}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-field label{
+  font-size:11px;color:var(--text2);
+  text-transform:uppercase;letter-spacing:.7px;font-weight:600;
+}
+.form-field input,
+.form-field select,
+.form-field textarea{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;color:var(--text);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.2);
+}
+.form-field input::placeholder,.form-field textarea::placeholder{color:var(--text3)}
+.form-field input:focus,
+.form-field select:focus{
+  border-color:rgba(79,142,247,.5);
+  box-shadow:0 0 0 3px rgba(79,142,247,.10),inset 0 1px 3px rgba(0,0,0,.1);
+  background:rgba(79,142,247,.04);
+}
+select option{background:#141929}
+
+/* Filter row */
+.filter-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.filter-row input,.filter-row select{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  padding:8px 14px;color:var(--text);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.filter-row input:focus{border-color:rgba(79,142,247,.5);box-shadow:0 0 0 3px rgba(79,142,247,.10)}
+
+/* ─── BADGES ─────────────────────────────────────────── */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 10px;border-radius:20px;
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+  border-width:1px;border-style:solid;
+}
+.badge-green{background:rgba(46,204,138,.10);color:var(--green);border-color:rgba(46,204,138,.2)}
+.badge-red{background:rgba(224,84,84,.10);color:var(--red);border-color:rgba(224,84,84,.2)}
+.badge-amber{background:rgba(240,160,48,.10);color:var(--amber);border-color:rgba(240,160,48,.2)}
+.badge-blue{background:rgba(79,142,247,.10);color:var(--ac);border-color:rgba(79,142,247,.2)}
+.badge-purple{background:rgba(155,127,240,.10);color:var(--purple);border-color:rgba(155,127,240,.2)}
+
+/* ─── AVATAR ─────────────────────────────────────────── */
+.avatar{
+  width:34px;height:34px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.35),0 0 0 2px rgba(255,255,255,.07);
+  letter-spacing:.2px;
+}
+
+/* ─── PROGRESS BARS ──────────────────────────────────── */
+.prog-bar{
+  height:7px;border-radius:10px;
+  background:rgba(255,255,255,.06);
+  overflow:hidden;margin-top:5px;
+}
+.prog-fill{
+  height:100%;border-radius:10px;
+  transition:width .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── LEADERBOARD ────────────────────────────────────── */
+.lb-row{
+  display:flex;align-items:center;gap:13px;
+  padding:12px 8px;border-radius:var(--radius-sm);
+  transition:background .15s;margin-bottom:2px;
+}
+.lb-row:hover{background:rgba(255,255,255,.04)}
+.lb-rank{width:26px;font-size:14px;font-weight:800;color:var(--text2);text-align:center;flex-shrink:0;font-family:var(--mono)}
+.lb-rank.gold{color:#f0c040;text-shadow:0 0 12px rgba(240,192,64,.4)}
+.lb-rank.silver{color:#b0b8cc}
+.lb-rank.bronze{color:#d0905a}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-weight:600;font-size:13.5px}
+.lb-meta{font-size:11.5px;color:var(--text2)}
+
+/* ─── ATTENDANCE GRID ────────────────────────────────── */
+.att-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:10px}
+.att-row{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:11px 15px;
+  transition:border-color .15s,background .15s;
+}
+.att-row:hover{background:rgba(255,255,255,.055);border-color:var(--border2)}
+.att-name{flex:1;font-weight:500;font-size:13.5px}
+.att-select{
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-xs);
+  padding:5px 10px;color:var(--text);cursor:pointer;outline:none;
+  font-size:13px;font-weight:500;
+  transition:border-color .15s;
+}
+.att-select:focus{border-color:rgba(79,142,247,.5)}
+
+/* ─── LOCKED MSG ─────────────────────────────────────── */
+.locked-msg{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px;color:var(--text2);gap:10px;
+}
+.locked-msg svg{opacity:.2}
+.locked-msg span{font-weight:500}
+
+/* ─── SALARY REASON ──────────────────────────────────── */
+.salary-reason{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;color:var(--amber);margin-top:3px;
+  background:rgba(240,160,48,.08);border:1px solid rgba(240,160,48,.15);
+  border-radius:4px;padding:1px 6px;
+}
+
+/* ─── GLOBAL FILTER BAR ──────────────────────────────────── */
+.filter-bar{
+  position:sticky;top:58px;z-index:99;
+  background:rgba(9,11,18,.88);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  min-height:58px;display:flex;align-items:center;flex-wrap:wrap;
+  padding:0 24px;gap:0;
+}
+/* left side: preset pills */
+.fb-presets{display:flex;align-items:center;gap:4px;padding:10px 0}
+.fb-label{font-size:10.5px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-right:6px;white-space:nowrap}
+.fpill{
+  padding:5px 13px;border-radius:20px;
+  border:1px solid transparent;
+  background:transparent;color:var(--text2);
+  cursor:pointer;font-size:12.5px;font-weight:500;
+  transition:all .15s;white-space:nowrap;line-height:1.4;
+}
+.fpill:hover{color:var(--text);background:rgba(255,255,255,.06);border-color:var(--border2)}
+.fpill.active{background:rgba(79,142,247,.15);color:var(--ac);border-color:rgba(79,142,247,.30);font-weight:600}
+/* divider */
+.fb-sep{width:1px;height:22px;background:var(--border2);margin:0 14px;flex-shrink:0;align-self:center}
+/* right side: always-visible date range */
+.fb-range{display:flex;align-items:center;gap:8px;padding:10px 0}
+.fb-range-lbl{font-size:10.5px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+/* individual date field box */
+.fb-date-field{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border2);
+  border-radius:9px;padding:5px 12px;
+  transition:border-color .2s,box-shadow .2s;
+  cursor:pointer;
+}
+.fb-date-field:focus-within{
+  border-color:rgba(79,142,247,.5);
+  box-shadow:0 0 0 3px rgba(79,142,247,.10);
+  background:rgba(79,142,247,.05);
+}
+.fb-date-field-lbl{
+  font-size:10.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.6px;color:var(--text3);white-space:nowrap;user-select:none;
+}
+.fb-date-field input[type=date]{
+  background:transparent;border:none;
+  color:var(--text);font-size:13px;font-family:var(--mono);font-weight:500;
+  outline:none;cursor:pointer;width:122px;
+  color-scheme:dark;padding:0;
+}
+.fb-date-field input[type=date]::-webkit-calendar-picker-indicator{
+  filter:invert(.6) brightness(1.2);cursor:pointer;opacity:.7;margin-left:2px;
+}
+/* arrow between the two fields */
+.fb-range-arrow{
+  display:flex;align-items:center;color:var(--text3);
+  font-size:16px;line-height:1;user-select:none;flex-shrink:0;padding:0 2px;
+}
+/* active range badge */
+.fb-active-badge{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(79,142,247,.10);border:1px solid rgba(79,142,247,.20);
+  border-radius:8px;padding:4px 11px;margin-left:6px;
+  font-size:12px;font-family:var(--mono);color:var(--ac);white-space:nowrap;
+}
+.fb-active-badge .dot{width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.layout{min-height:calc(100vh - 116px)}
+.sidebar{top:116px;height:calc(100vh - 116px)}
+
+/* ─── EXPENSE SUB-TABS ───────────────────────────────────── */
+.exp-subtabs{display:flex;gap:4px;margin-bottom:18px;border-bottom:1px solid var(--border);padding-bottom:0}
+.exp-stab{
+  padding:8px 18px;font-size:13px;font-weight:500;color:var(--text2);
+  background:none;border:none;border-bottom:2px solid transparent;
+  cursor:pointer;transition:all .15s;margin-bottom:-1px;border-radius:0
+}
+.exp-stab:hover{color:var(--text)}
+.exp-stab.active{color:var(--ac);border-bottom-color:var(--ac);font-weight:600}
+
+/* ─── RECURRING EXPENSES ─────────────────────────────────── */
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.rec-card{
+  background:rgba(255,255,255,.03);border:1px solid var(--border2);
+  border-radius:12px;padding:18px 20px;
+  display:flex;flex-direction:column;gap:10px;
+  position:relative;overflow:hidden;transition:border-color .2s;
+}
+.rec-card:hover{border-color:rgba(255,255,255,.14)}
+.rec-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.rec-card-name{font-weight:700;font-size:14.5px}
+.rec-card-meta{font-size:12px;color:var(--text2);margin-top:2px}
+.rec-card-amount{font-family:var(--mono);font-size:18px;font-weight:700;letter-spacing:-.5px}
+.rec-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid var(--border)}
+.rec-status{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;border:1px solid}
+.rec-status.paid{background:rgba(46,204,138,.10);color:var(--green);border-color:rgba(46,204,138,.25)}
+.rec-status.due{background:rgba(240,160,48,.10);color:var(--amber);border-color:rgba(240,160,48,.25)}
+.rec-status.overdue{background:rgba(224,84,84,.12);color:var(--red);border-color:rgba(224,84,84,.28)}
+.rec-status .sdot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.rec-history{font-size:11.5px;color:var(--text2)}
+.rec-history span{color:var(--text);font-weight:500}
+.rec-accent{position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .main{padding:16px}
+  .filter-bar{padding:0 12px;overflow-x:auto;flex-wrap:nowrap}
+  .fb-active-badge{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-box">
+    <div class="login-logo">IM</div>
+    <div class="login-brand">Insure Media Group</div>
+    <div class="login-sub">Sign in to your workspace</div>
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="u" placeholder="Enter username" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="p" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn btn-primary btn-full" onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="brand"><div class="brand-icon">IM</div>Insure Media Group</div>
+    <span class="saved-indicator" id="savedInd">Saved</span>
+    <button class="btn btn-ghost btn-sm" onclick="exportData()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Export
+    </button>
+    <button class="btn btn-ghost btn-sm" onclick="importData()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+      Import
+    </button>
+    <div class="user-pill">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span id="topUser">—</span>
+      <span class="role-badge" id="topRole">—</span>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="doLogout()">Sign Out</button>
+  </div>
+
+  <!-- Global Filter Bar -->
+  <div class="filter-bar" id="filterBar">
+    <!-- Quick presets -->
+    <div class="fb-presets">
+      <span class="fb-label">Period</span>
+      <button class="fpill" id="fp-today"     onclick="setGFilter('today')">Today</button>
+      <button class="fpill" id="fp-week"      onclick="setGFilter('week')">This Week</button>
+      <button class="fpill active" id="fp-month" onclick="setGFilter('month')">This Month</button>
+      <button class="fpill" id="fp-lastmonth" onclick="setGFilter('lastmonth')">Last Month</button>
+      <button class="fpill" id="fp-all"       onclick="setGFilter('all')">All Time</button>
+    </div>
+    <!-- Divider -->
+    <div class="fb-sep"></div>
+    <!-- Always-visible date range -->
+    <div class="fb-range">
+      <span class="fb-range-lbl">Range</span>
+      <div class="fb-date-field">
+        <span class="fb-date-field-lbl">From</span>
+        <input type="date" id="gFrom" onchange="onRangeChange()">
+      </div>
+      <div class="fb-range-arrow">→</div>
+      <div class="fb-date-field">
+        <span class="fb-date-field-lbl">To</span>
+        <input type="date" id="gTo" onchange="onRangeChange()">
+      </div>
+      <div class="fb-active-badge" id="fbActiveBadge">
+        <span class="dot"></span>
+        <span id="fbRangeLabel"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="nav-section">Menu</div>
+      <div class="nav-item active" onclick="showTab('dashboard')" id="nav-dashboard">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </div>
+      <div class="nav-item" onclick="showTab('employees')" id="nav-employees">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75M21 21v-2a4 4 0 00-3-3.87"/></svg>
+        Employees
+      </div>
+      <div class="nav-item" onclick="showTab('attendance')" id="nav-attendance">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 16l2 2 4-4"/></svg>
+        Attendance
+      </div>
+      <div class="nav-item" onclick="showTab('salary')" id="nav-salary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        Salary
+      </div>
+      <div class="nav-item" onclick="showTab('sales')" id="nav-sales">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Sales
+      </div>
+      <div class="nav-item" onclick="showTab('expenses')" id="nav-expenses">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+        Expenses
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="kpi-grid" id="dashKpi"></div>
+        <div class="charts-row">
+          <div class="chart-wrap">
+            <div class="chart-title">Sales Count by Employee</div>
+            <canvas id="chartSales"></canvas>
+          </div>
+          <div class="chart-wrap" id="expChartWrap">
+            <div class="chart-title">Expenses by Category</div>
+            <canvas id="chartExp"></canvas>
+            <div class="locked-msg" id="expChartLocked" style="display:none">
+              <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <span>Admin access only</span>
+            </div>
+          </div>
+        </div>
+        <div class="charts-row">
+          <div class="card" style="margin:0">
+            <div class="card-header"><span class="card-title">Top Performers</span></div>
+            <div class="card-body" id="leaderboard"></div>
+          </div>
+          <div class="card" style="margin:0">
+            <div class="card-header"><span class="card-title">Attendance Breakdown</span></div>
+            <div class="card-body" id="attBreakdown"></div>
+          </div>
+        </div>
+        <div class="chart-wrap" style="margin-top:16px" id="salaryChartWrap">
+          <div class="chart-title">Net Salary by Employee</div>
+          <canvas id="chartSalary"></canvas>
+          <div class="locked-msg" id="salaryChartLocked" style="display:none">
+            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <span>Admin access only</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMPLOYEES -->
+      <div class="page" id="page-employees">
+        <div class="card" id="empFormCard">
+          <div class="card-header"><span class="card-title">Add Employee</span></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-field"><label>Full Name</label><input id="empName" placeholder="John Doe"></div>
+              <div class="form-field">
+                <label>Role / Position</label>
+                <select id="empRoleSel" onchange="onRoleSelChange(this)">
+                  <option value="">-- Select position --</option>
+                  <option value="__other__">-- Other (type below) --</option>
+                </select>
+                <input id="empRole" placeholder="Type custom role" style="margin-top:6px;display:none">
+              </div>
+              <div class="form-field"><label>Monthly Salary (PKR)</label><input id="empSalary" type="number" placeholder="50000"></div>
+              <div class="form-field"><label>Commission %</label><input id="empComm" type="number" placeholder="5" step="0.1"></div>
+              <div class="form-field" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addEmployee()">Add Employee</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="jobPosCard">
+          <div class="card-header">
+            <span class="card-title">Job Positions</span>
+          </div>
+          <div class="card-body">
+            <div class="form-grid" style="margin-bottom:16px">
+              <div class="form-field"><label>Position Title</label><input id="jobTitle" placeholder="e.g. Sales Agent"></div>
+              <div class="form-field" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addJobPos()">Add Position</button></div>
+            </div>
+            <div class="tbl-wrap">
+              <table>
+                <thead><tr><th>Title</th><th>Assigned To</th><th>Actions</th></tr></thead>
+                <tbody id="jobTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Employees <span id="empCount" style="color:var(--text2);font-size:13px"></span></span>
+          </div>
+          <div class="card-body tbl-wrap" style="padding:0">
+            <table>
+              <thead><tr><th>Employee</th><th>Role</th><th>Salary</th><th>Commission</th><th id="empActHead"></th></tr></thead>
+              <tbody id="empTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATTENDANCE -->
+      <div class="page" id="page-attendance">
+        <div class="card">
+          <div class="card-header"><span class="card-title">Log Attendance</span></div>
+          <div class="card-body">
+            <div class="filter-row" style="margin-bottom:16px">
+              <div class="form-field">
+                <label style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;font-weight:500">Date</label>
+                <input type="date" id="attDate">
+              </div>
+              <div style="padding-top:18px"><button class="btn btn-ghost btn-sm" onclick="setAttToday()">Today</button></div>
+            </div>
+            <div class="att-grid" id="attGrid"></div>
+            <div style="margin-top:16px">
+              <button class="btn btn-green" onclick="saveAttendance()">Save All Attendance</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Attendance Log</span>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="position:relative">
+                <input id="attEmpSearch" type="text" placeholder="Search employee…" oninput="renderAttLog()"
+                  style="background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;padding:6px 12px 6px 30px;color:var(--text);font-size:12.5px;outline:none;width:180px">
+                <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.4" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <span style="font-size:12px;color:var(--text3)" id="attLogRangeNote"></span>
+            </div>
+          </div>
+          <!-- Per-employee stats strip (shown when searching) -->
+          <div id="attEmpStats" style="display:none;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.02)"></div>
+          <div class="card-body tbl-wrap" style="padding:0">
+            <table>
+              <thead><tr><th>Employee</th><th>Date</th><th>Status</th><th>Logged By</th><th></th></tr></thead>
+              <tbody id="attTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SALARY -->
+      <div class="page" id="page-salary">
+        <div class="filter-row" style="margin-bottom:16px">
+          <div class="form-field">
+            <label style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;font-weight:500">Month</label>
+            <input type="month" id="salMonth">
+          </div>
+        </div>
+        <div class="card" id="adjFormCard">
+          <div class="card-header"><span class="card-title">Add Deduction</span></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-field"><label>Employee</label><select id="adjEmp"><option value="">Select...</option></select></div>
+              <div class="form-field"><label>Month</label><input type="month" id="adjMonth"></div>
+              <div class="form-field"><label>Amount (PKR)</label><input id="adjAmt" type="number" placeholder="1000"></div>
+              <div class="form-field"><label>Reason</label><input id="adjReason" placeholder="Reason for deduction"></div>
+              <div class="form-field" style="justify-content:flex-end"><button class="btn btn-danger" onclick="addAdj()">Add Deduction</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Salary Breakdown</span></div>
+          <div class="card-body tbl-wrap" style="padding:0">
+            <table>
+              <thead><tr><th>Employee</th><th>Sales</th><th>Base</th><th>Punctuality</th><th>Sales Bonus</th><th>Docks</th><th>Net Payable</th><th>Status</th></tr></thead>
+              <tbody id="salTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Deductions History</span></div>
+          <div class="card-body tbl-wrap" style="padding:0">
+            <table>
+              <thead><tr><th>Employee</th><th>Month</th><th>Amount</th><th>Reason</th><th id="adjActHead"></th></tr></thead>
+              <tbody id="adjTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SALES -->
+      <div class="page" id="page-sales">
+        <div class="card">
+          <div class="card-header"><span class="card-title">Log Sales</span></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-field"><label>Employee</label><select id="saleEmp"><option value="">Select...</option></select></div>
+              <div class="form-field"><label>Date</label><input type="date" id="saleDate"></div>
+              <div class="form-field"><label>Sales Count</label><input id="saleCnt" type="number" placeholder="10"></div>
+              <div class="form-field" id="saleRevField"><label>Revenue (PKR)</label><input id="saleRev" type="number" placeholder="50000"></div>
+              <div class="form-field" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addSale()">Log Sale</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Monthly Summary</span>
+            <span style="font-size:12px;color:var(--text3)" id="salesRangeNote"></span>
+          </div>
+          <div class="card-body tbl-wrap" style="padding:0">
+            <table>
+              <thead><tr><th>Employee</th><th>Total Sales</th><th id="saleRevHead">Revenue</th><th id="saleBonusHead">Sales Bonus Tier</th></tr></thead>
+              <tbody id="saleSummary"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Daily Log</span></div>
+          <div class="card-body tbl-wrap" style="padding:0">
+            <table>
+              <thead><tr><th>Employee</th><th>Date</th><th>Sales Count</th><th id="saleRevHeadD">Revenue</th><th></th></tr></thead>
+              <tbody id="saleTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPENSES -->
+      <div class="page" id="page-expenses">
+        <div id="expLockedMsg" class="locked-msg" style="display:none;padding:80px">
+          <svg width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span style="font-size:16px">Admin access only</span>
+        </div>
+        <div id="expContent">
+
+          <!-- Expense sub-tabs -->
+          <div class="exp-subtabs">
+            <button class="exp-stab active" id="est-monthly" onclick="switchExpTab('monthly')">Fixed Monthly</button>
+            <button class="exp-stab"        id="est-daily"   onclick="switchExpTab('daily')">Daily Expenses</button>
+          </div>
+
+          <!-- FIXED MONTHLY PANEL -->
+          <div id="exp-panel-monthly">
+            <div class="kpi-grid" id="expKpiMonthly"></div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Fixed Monthly Bills</span>
+                <button class="btn btn-ghost btn-sm" onclick="toggleRecForm()">+ Add</button>
+              </div>
+              <div class="card-body" id="recFormWrap" style="display:none;border-bottom:1px solid var(--border);padding-bottom:20px;margin-bottom:0">
+                <div class="form-grid">
+                  <div class="form-field"><label>Name</label><input id="recName" placeholder="e.g. Office Rent"></div>
+                  <div class="form-field"><label>Category</label><select id="recCat"></select></div>
+                  <div class="form-field"><label>Amount (PKR)</label><input id="recAmt" type="number" placeholder="50000"></div>
+                  <div class="form-field"><label>Due Day of Month</label><input id="recDay" type="number" min="1" max="31" placeholder="5"></div>
+                  <div class="form-field"><label>Notes</label><input id="recNotes" placeholder="Optional"></div>
+                  <div class="form-field" style="justify-content:flex-end">
+                    <button class="btn btn-primary" onclick="addRecurring()">Save</button>
+                    <button class="btn btn-ghost" onclick="toggleRecForm()" style="margin-top:6px">Cancel</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="rec-grid" id="recGrid"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DAILY EXPENSES PANEL -->
+          <div id="exp-panel-daily" style="display:none">
+            <div class="kpi-grid" id="expKpi"></div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Add Expense</span>
+                <button class="btn btn-ghost btn-sm" onclick="toggleExpForm()">+ New</button>
+              </div>
+              <div id="expFormWrap" style="display:none;border-top:1px solid var(--border)">
+                <div class="card-body">
+                  <div class="form-grid">
+                    <div class="form-field"><label>Category</label><select id="expCat"></select></div>
+                    <div class="form-field"><label>Date</label><input type="date" id="expDate"></div>
+                    <div class="form-field"><label>Amount (PKR)</label><input id="expAmt" type="number" placeholder="10000"></div>
+                    <div class="form-field"><label>Notes</label><input id="expNotes" placeholder="Optional notes"></div>
+                    <div class="form-field" style="justify-content:flex-end">
+                      <button class="btn btn-primary" onclick="addExpense()">Add Expense</button>
+                      <button class="btn btn-ghost" onclick="toggleExpForm()" style="margin-top:6px">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Expense Log</span>
+                <select id="expCatFilter" onchange="renderExpenses()" style="background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;color:var(--text);font-size:12.5px;outline:none">
+                  <option value="">All Categories</option>
+                </select>
+              </div>
+              <div class="card-body tbl-wrap" style="padding:0">
+                <table>
+                  <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Notes</th><th></th></tr></thead>
+                  <tbody id="expTable"></tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Manage Categories (collapsed) -->
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Categories</span>
+                <button class="btn btn-ghost btn-sm" onclick="toggleCatForm()">Manage</button>
+              </div>
+              <div id="catFormWrap" style="display:none">
+                <div class="card-body" style="border-bottom:1px solid var(--border)">
+                  <div class="form-grid">
+                    <div class="form-field"><label>Category Name</label><input id="catName" placeholder="e.g. Marketing"></div>
+                    <div class="form-field">
+                      <label>Color</label>
+                      <input type="color" id="catColor" value="#20c9b0" style="width:100%;height:38px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);cursor:pointer;padding:2px 4px">
+                    </div>
+                    <div class="form-field" style="justify-content:flex-end"><button class="btn btn-primary" onclick="addCategory()">Add Category</button></div>
+                  </div>
+                </div>
+                <div class="card-body tbl-wrap" style="padding:0">
+                  <table>
+                    <thead><tr><th>Name</th><th>Color</th><th>Badge Preview</th><th>Actions</th></tr></thead>
+                    <tbody id="catTable"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div><!-- end daily panel -->
+
+        </div><!-- end expContent -->
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+
+<script>
+// ===== CONSTANTS =====
+var CREDS = {
+  admin: {password:'Admin@2024', role:'admin'},
+  manager: {password:'Manager@2024', role:'manager'}
+};
+
+var BASE_SALARY = 50000;
+var PUNCT_BONUS = 10000;
+var SALES_TIERS = [
+  {min:170, bonus:200000},
+  {min:150, bonus:120000},
+  {min:130, bonus:100000},
+  {min:99,  bonus:50000},
+  {min:88,  bonus:30000},
+  {min:77,  bonus:20000},
+  {min:0,   bonus:0}
+];
+
+var AVATAR_COLORS = ['#4f8ef7','#2ecc8a','#9b7ff0','#f0a030','#e05454','#20c9b0','#f070b0','#70a0f0'];
+var CAT_COLORS = {'Rent':'#4f8ef7','Utilities':'#2ecc8a','Supplies':'#f0a030','Internet':'#9b7ff0','Equipment':'#e05454','Other':'#8b90a0'};
+var CUSTOM_CAT_PALETTE = ['#20c9b0','#f070b0','#c0a060','#7090e0','#e08040','#60c0d0','#b060e0','#80d060'];
+var DEFAULT_CATS = ['Rent','Utilities','Supplies','Internet','Equipment','Other'];
+
+// ===== STATE =====
+var currentUser = null;
+var currentRole = null;
+var currentTab = 'dashboard';
+
+// Global filter
+var gFilter = {type:'month', from:null, to:null};
+
+// Data arrays
+var E = [], A = [], J = [], S = [], X = [], C = [], P = [], R = [];
+// C = custom expense categories [{id, name, color}]
+// P = job positions [{id, title}]
+// R = recurring expenses [{id, name, category, amount, dayOfMonth, notes}]
+
+// Chart instances
+var chartSalesInst = null, chartExpInst = null, chartSalaryInst = null;
+
+// ===== STORAGE =====
+function loadData() {
+  E = JSON.parse(localStorage.getItem('crm2_emp') || '[]');
+  A = JSON.parse(localStorage.getItem('crm2_att') || '[]');
+  J = JSON.parse(localStorage.getItem('crm2_adj') || '[]');
+  S = JSON.parse(localStorage.getItem('crm2_sls') || '[]');
+  X = JSON.parse(localStorage.getItem('crm2_exp') || '[]');
+  C = JSON.parse(localStorage.getItem('crm2_cats') || '[]');
+  P = JSON.parse(localStorage.getItem('crm2_jobs') || '[]');
+  R = JSON.parse(localStorage.getItem('crm2_rec')  || '[]');
+  // Seed default recurring expenses; migrate if missing entries
+  var recSeeds = [
+    {id:'rec_rent_01',     name:'Office Rent', category:'Rent',      amount:0, dayOfMonth:5, notes:'Monthly office rent due on the 5th'},
+    {id:'rec_electric_01', name:'Electricity', category:'Utilities', amount:0, dayOfMonth:5, notes:'Monthly electricity bill'},
+    {id:'rec_internet_01', name:'Internet',    category:'Utilities', amount:0, dayOfMonth:5, notes:'Monthly internet bill'}
+  ];
+  recSeeds.forEach(function(seed){
+    if (!R.find(function(r){return r.id===seed.id;})) R.push(seed);
+  });
+  localStorage.setItem('crm2_rec', JSON.stringify(R));
+}
+
+function saveData() {
+  localStorage.setItem('crm2_emp', JSON.stringify(E));
+  localStorage.setItem('crm2_att', JSON.stringify(A));
+  localStorage.setItem('crm2_adj', JSON.stringify(J));
+  localStorage.setItem('crm2_sls', JSON.stringify(S));
+  localStorage.setItem('crm2_exp', JSON.stringify(X));
+  localStorage.setItem('crm2_cats', JSON.stringify(C));
+  localStorage.setItem('crm2_jobs', JSON.stringify(P));
+  localStorage.setItem('crm2_rec',  JSON.stringify(R));
+  flashSaved();
+}
+
+function flashSaved() {
+  var el = document.getElementById('savedInd');
+  el.style.opacity = '1';
+  setTimeout(function(){el.style.opacity='0';}, 1500);
+}
+
+// ===== AUTH =====
+function doLogin() {
+  var u = document.getElementById('u').value.trim();
+  var p = document.getElementById('p').value;
+  var err = document.getElementById('loginErr');
+  var found = false;
+  for (var key in CREDS) {
+    if (key === u && CREDS[key].password === p) {
+      currentUser = key;
+      currentRole = CREDS[key].role;
+      found = true;
+      break;
+    }
+  }
+  if (!found) {
+    err.textContent = 'Invalid username or password.';
+    return;
+  }
+  err.textContent = '';
+  document.getElementById('login').style.display = 'none';
+  var app = document.getElementById('app');
+  app.style.display = 'flex';
+  app.style.flexDirection = 'column';
+  app.style.minHeight = '100vh';
+  document.getElementById('topUser').textContent = currentUser;
+  var roleEl = document.getElementById('topRole');
+  roleEl.textContent = currentRole;
+  roleEl.className = 'role-badge role-' + currentRole;
+  loadData();
+  setupForRole();
+  showTab('dashboard');
+}
+
+function doLogout() {
+  currentUser = null;
+  currentRole = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login').style.display = 'flex';
+  document.getElementById('u').value = '';
+  document.getElementById('p').value = '';
+}
+
+// ===== ROLE SETUP =====
+function setupForRole() {
+  // Expenses tab — admin only
+  var navExp = document.getElementById('nav-expenses');
+  if (currentRole === 'manager') {
+    navExp.style.display = 'none';
+    document.getElementById('expContent').style.display = 'none';
+    document.getElementById('expLockedMsg').style.display = 'flex';
+  } else {
+    navExp.style.display = 'flex';
+    document.getElementById('expContent').style.display = 'block';
+    document.getElementById('expLockedMsg').style.display = 'none';
+  }
+  // Employee form & job positions — admin only
+  document.getElementById('empFormCard').style.display = currentRole === 'admin' ? 'block' : 'none';
+  document.getElementById('jobPosCard').style.display = currentRole === 'admin' ? 'block' : 'none';
+  document.getElementById('empActHead').style.display = currentRole === 'admin' ? '' : 'none';
+  rebuildJobSelect();
+  // Salary form — admin only
+  document.getElementById('adjFormCard').style.display = currentRole === 'admin' ? 'block' : 'none';
+  document.getElementById('adjActHead').textContent = currentRole === 'admin' ? '' : '';
+  // Sales revenue — admin only
+  document.getElementById('saleRevField').style.display = currentRole === 'admin' ? 'block' : 'none';
+  if (currentRole === 'manager') {
+    document.getElementById('saleRevHead').style.display = 'none';
+    document.getElementById('saleRevHeadD').style.display = 'none';
+    document.getElementById('saleBonusHead').style.display = 'none';
+  }
+  // Today's date defaults
+  var today = getToday();
+  document.getElementById('attDate').value = today;
+  document.getElementById('saleDate').value = today;
+  document.getElementById('expDate').value = today;
+  var nowM = today.substring(0,7);
+  document.getElementById('salMonth').value = nowM;
+  document.getElementById('adjMonth').value = nowM;
+  populateSelects();
+  rebuildExpCatSelect();
+  // seed date range inputs with current month
+  var r = getFilterRange();
+  var fromEl = document.getElementById('gFrom');
+  var toEl   = document.getElementById('gTo');
+  if (fromEl) fromEl.value = r.from || '';
+  if (toEl)   toEl.value   = r.to   || '';
+  gFilter.from = r.from;
+  gFilter.to   = r.to;
+  updateFilterUI();
+}
+
+function onRoleSelChange(sel) {
+  var custom = document.getElementById('empRole');
+  if (sel.value === '__other__') {
+    custom.style.display = 'block';
+    custom.focus();
+  } else {
+    custom.style.display = 'none';
+    custom.value = '';
+  }
+}
+
+function getToday() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function populateSelects() {
+  var selects = ['adjEmp','saleEmp'];
+  selects.forEach(function(id){
+    var el = document.getElementById(id);
+    if (!el) return;
+    var val = el.value;
+    el.innerHTML = '<option value="">Select...</option>';
+    E.forEach(function(e){
+      var opt = document.createElement('option');
+      opt.value = e.id;
+      opt.textContent = e.name;
+      el.appendChild(opt);
+    });
+    el.value = val;
+  });
+}
+
+// ===== NAVIGATION =====
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  document.getElementById('page-'+tab).classList.add('active');
+  var nav = document.getElementById('nav-'+tab);
+  if (nav) nav.classList.add('active');
+  renderTab(tab);
+}
+
+function renderTab(tab) {
+  if (tab === 'dashboard') renderDashboard();
+  else if (tab === 'employees') {renderEmployees(); renderJobPos();}
+  else if (tab === 'attendance') {renderAttGrid(); renderAttLog();}
+  else if (tab === 'salary') {populateSelects(); renderSalary(); renderAdj();}
+  else if (tab === 'sales') {populateSelects(); renderSales();}
+  else if (tab === 'expenses') { switchExpTab(currentExpTab); }
+}
+
+// ===== HELPERS =====
+function pkr(n) {
+  return 'PKR ' + Math.round(n).toLocaleString();
+}
+
+function getInitials(name) {
+  var parts = name.trim().split(' ');
+  if (parts.length >= 2) return (parts[0][0]+parts[1][0]).toUpperCase();
+  return name.substring(0,2).toUpperCase();
+}
+
+function avatarColor(id) {
+  var idx = 0;
+  for (var i=0;i<id.length;i++) idx += id.charCodeAt(i);
+  return AVATAR_COLORS[idx % AVATAR_COLORS.length];
+}
+
+function makeid() {
+  return Math.random().toString(36).substr(2,9);
+}
+
+function getCatColor(catName) {
+  if (CAT_COLORS[catName]) return CAT_COLORS[catName];
+  var custom = C.find(function(c){return c.name===catName;});
+  return custom ? custom.color : '#8b90a0';
+}
+
+function allCategories() {
+  var cats = DEFAULT_CATS.slice();
+  C.forEach(function(c){if(cats.indexOf(c.name)===-1) cats.push(c.name);});
+  return cats;
+}
+
+function rebuildExpCatSelect() {
+  var sel = document.getElementById('expCat');
+  if (!sel) return;
+  var val = sel.value;
+  sel.innerHTML = '';
+  allCategories().forEach(function(name){
+    var opt = document.createElement('option');
+    opt.value = name; opt.textContent = name;
+    sel.appendChild(opt);
+  });
+  if (val) sel.value = val;
+}
+
+function rebuildJobSelect() {
+  var sel = document.getElementById('empRoleSel');
+  if (!sel) return;
+  var val = sel.value;
+  sel.innerHTML = '<option value="">-- Select position --</option>';
+  P.forEach(function(p){
+    var opt = document.createElement('option');
+    opt.value = p.title; opt.textContent = p.title;
+    sel.appendChild(opt);
+  });
+  var other = document.createElement('option');
+  other.value = '__other__'; other.textContent = '-- Other (type below) --';
+  sel.appendChild(other);
+  if (val) sel.value = val;
+}
+
+function getMonthPrefix(monthVal) {
+  // monthVal is like "2024-03" from input[type=month]
+  return monthVal;
+}
+
+function monthLabel(prefix) {
+  if (!prefix) return '';
+  var d = new Date(prefix + '-01');
+  return d.toLocaleString('default',{month:'long',year:'numeric'});
+}
+
+function getSalesBonus(cnt) {
+  for (var i=0;i<SALES_TIERS.length;i++) {
+    if (cnt >= SALES_TIERS[i].min) return SALES_TIERS[i].bonus;
+  }
+  return 0;
+}
+
+function getSalesBonusTier(cnt) {
+  for (var i=0;i<SALES_TIERS.length;i++) {
+    if (cnt >= SALES_TIERS[i].min) return SALES_TIERS[i].min + '+ → ' + pkr(SALES_TIERS[i].bonus);
+  }
+  return pkr(0);
+}
+
+function calcSalary(empId, monthPrefix) {
+  // Sales count for month
+  var salesEntries = S.filter(function(s){return s.empId===empId && s.date.startsWith(monthPrefix);});
+  var salesCnt = salesEntries.reduce(function(a,b){return a+Number(b.count);},0);
+  // Attendance
+  var attEntries = A.filter(function(a){return a.empId===empId && a.date.startsWith(monthPrefix);});
+  var absents = attEntries.filter(function(a){return a.status==='Absent';}).length;
+  var lates = attEntries.filter(function(a){return a.status==='Late';}).length;
+  var punctBonus = PUNCT_BONUS;
+  var punctReason = '';
+  if (absents > 0) { punctBonus = 0; punctReason = 'Has absent day'; }
+  else if (lates > 3) { punctBonus = 0; punctReason = lates + ' late days'; }
+  // Sales bonus
+  var salesBonus = getSalesBonus(salesCnt);
+  // Manual docks
+  var docks = J.filter(function(j){return j.empId===empId && j.month===monthPrefix;})
+               .reduce(function(a,b){return a+Number(b.amount);},0);
+  var net = BASE_SALARY + punctBonus + salesBonus - docks;
+  return {salesCnt, punctBonus, punctReason, salesBonus, docks, net};
+}
+
+// ===== GLOBAL FILTER =====
+function getFilterRange() {
+  var t = gFilter.type;
+  var today = getToday();
+  var y = parseInt(today.substring(0,4)), mo = parseInt(today.substring(5,7))-1;
+  if (t === 'all') return {from:null, to:null};
+  if (t === 'today') return {from:today, to:today};
+  if (t === 'week') {
+    var d = new Date(today+'T00:00:00');
+    var day = d.getDay();
+    var mon = new Date(d); mon.setDate(d.getDate() - (day===0?6:day-1));
+    var sun = new Date(mon); sun.setDate(mon.getDate()+6);
+    return {from:mon.toISOString().split('T')[0], to:sun.toISOString().split('T')[0]};
+  }
+  if (t === 'month') {
+    var first = y+'-'+String(mo+1).padStart(2,'0')+'-01';
+    var last = new Date(y, mo+1, 0).toISOString().split('T')[0];
+    return {from:first, to:last};
+  }
+  if (t === 'lastmonth') {
+    var lm = mo===0?11:mo-1, ly = mo===0?y-1:y;
+    var first = ly+'-'+String(lm+1).padStart(2,'0')+'-01';
+    var last = new Date(ly, lm+1, 0).toISOString().split('T')[0];
+    return {from:first, to:last};
+  }
+  if (t === 'custom') return {from:gFilter.from||null, to:gFilter.to||null};
+  return {from:null, to:null};
+}
+
+function filterByDate(arr, dateField) {
+  var r = getFilterRange();
+  if (!r.from && !r.to) return arr;
+  return arr.filter(function(item){
+    var d = item[dateField];
+    if (!d) return false;
+    if (r.from && d < r.from) return false;
+    if (r.to   && d > r.to)   return false;
+    return true;
+  });
+}
+
+function filterLabel() {
+  var t = gFilter.type;
+  var today = getToday();
+  var y = parseInt(today.substring(0,4)), mo = parseInt(today.substring(5,7))-1;
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  if (t === 'all')       return 'All Time';
+  if (t === 'today')     return 'Today · ' + today;
+  if (t === 'week')      { var r=getFilterRange(); return 'Week · '+r.from+' – '+r.to; }
+  if (t === 'month')     return months[mo]+' '+y;
+  if (t === 'lastmonth') { var lm=mo===0?11:mo-1,ly=mo===0?y-1:y; return months[lm]+' '+ly; }
+  if (t === 'custom')    return (gFilter.from||'?')+' – '+(gFilter.to||'?');
+  return '';
+}
+
+function setGFilter(type) {
+  gFilter.type = type;
+  // compute range and push into the date inputs
+  var r = getFilterRange();
+  var fromEl = document.getElementById('gFrom');
+  var toEl   = document.getElementById('gTo');
+  if (fromEl) fromEl.value = r.from || '';
+  if (toEl)   toEl.value   = r.to   || '';
+  gFilter.from = r.from;
+  gFilter.to   = r.to;
+  updateFilterUI();
+  renderTab(currentTab);
+}
+
+function onRangeChange() {
+  // User manually edited a date input — switch to custom mode
+  var f = document.getElementById('gFrom').value || null;
+  var t = document.getElementById('gTo').value   || null;
+  gFilter.type = 'custom';
+  gFilter.from = f;
+  gFilter.to   = t;
+  updateFilterUI();
+  renderTab(currentTab);
+}
+
+// kept for backward compat (no longer needed but harmless)
+function applyCustomFilter() { onRangeChange(); }
+
+function updateFilterUI() {
+  var pills = ['today','week','month','lastmonth','all'];
+  pills.forEach(function(p){
+    var el = document.getElementById('fp-'+p);
+    if (el) el.classList.toggle('active', gFilter.type===p);
+  });
+  var lbl = document.getElementById('fbRangeLabel');
+  if (lbl) lbl.textContent = filterLabel();
+}
+
+// ===== DASHBOARD =====
+function renderDashboard() {
+  renderDashKpi();
+  renderDashCharts();
+  renderLeaderboard();
+  renderAttBreakdown();
+}
+
+function renderDashKpi() {
+  var container = document.getElementById('dashKpi');
+  var fS = filterByDate(S, 'date');
+  var fA = filterByDate(A, 'date');
+  var fX = filterByDate(X, 'date');
+  var lbl = filterLabel();
+  var html = '';
+  if (currentRole === 'admin') {
+    var totalRev = fS.reduce(function(a,b){return a+Number(b.revenue||0);},0);
+    var totalExp = fX.reduce(function(a,b){return a+Number(b.amount);},0);
+    var totalNet = 0;
+    var now = getToday().substring(0,7);
+    E.forEach(function(e){ totalNet += calcSalary(e.id, now).net; });
+    html += kpiCard('Employees', E.length, 'Total staff');
+    html += kpiCard('Revenue', pkr(totalRev), lbl);
+    html += kpiCard('Expenses', pkr(totalExp), lbl);
+    html += kpiCard('Net Payroll', pkr(totalNet), now);
+  } else {
+    var totalSalesCnt = fS.reduce(function(a,b){return a+Number(b.count);},0);
+    var onTime = fA.filter(function(a){return a.status==='On time';}).length;
+    var totalAtt = fA.length;
+    var onTimeRate = totalAtt > 0 ? Math.round(onTime/totalAtt*100) : 0;
+    html += kpiCard('Employees', E.length, 'Total staff');
+    html += kpiCard('Total Sales', totalSalesCnt, lbl);
+    html += kpiCard('Attendance Logs', totalAtt, lbl);
+    html += kpiCard('On-Time Rate', onTimeRate+'%', lbl);
+  }
+  container.innerHTML = html;
+}
+
+function kpiCard(label, value, sub) {
+  return '<div class="kpi-card"><div class="kpi-label">'+label+'</div><div class="kpi-value">'+value+'</div><div class="kpi-sub">'+sub+'</div></div>';
+}
+
+var CHART_DEFAULTS = {
+  color:'#7a82a0',
+  grid:{color:'rgba(255,255,255,.04)'},
+  ticks:{color:'#7a82a0',font:{family:"'DM Sans',sans-serif",size:12}},
+  border:{color:'rgba(255,255,255,.05)'}
+};
+
+function renderDashCharts() {
+  var fS = filterByDate(S, 'date');
+  var fX = filterByDate(X, 'date');
+  // Sales bar chart
+  var labels = E.map(function(e){return e.name.split(' ')[0];});
+  var data = E.map(function(e){
+    return fS.filter(function(s){return s.empId===e.id;}).reduce(function(a,b){return a+Number(b.count);},0);
+  });
+  if (chartSalesInst) chartSalesInst.destroy();
+  var ctx = document.getElementById('chartSales').getContext('2d');
+  chartSalesInst = new Chart(ctx, {
+    type:'bar',
+    data:{labels:labels,datasets:[{
+      label:'Sales Count',data:data,
+      backgroundColor:'rgba(79,142,247,0.55)',
+      hoverBackgroundColor:'rgba(79,142,247,0.85)',
+      borderRadius:8,borderSkipped:false
+    }]},
+    options:{
+      responsive:true,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(9,11,18,.95)',titleColor:'#eef0f8',bodyColor:'#7a82a0',borderColor:'rgba(255,255,255,.08)',borderWidth:1,padding:12,cornerRadius:10}},
+      scales:{
+        x:{ticks:CHART_DEFAULTS.ticks,grid:{display:false},border:{color:'rgba(255,255,255,.06)'}},
+        y:{ticks:CHART_DEFAULTS.ticks,grid:CHART_DEFAULTS.grid,border:{color:'transparent'}}
+      }
+    }
+  });
+
+  // Expenses doughnut
+  if (chartExpInst) chartExpInst.destroy();
+  var expCanvas = document.getElementById('chartExp');
+  var expLocked = document.getElementById('expChartLocked');
+  if (currentRole === 'admin') {
+    expCanvas.style.display = 'block';
+    expLocked.style.display = 'none';
+    var catMap = {};
+    fX.forEach(function(x){catMap[x.category]=(catMap[x.category]||0)+Number(x.amount);});
+    var cats = Object.keys(catMap);
+    var ctx2 = expCanvas.getContext('2d');
+    chartExpInst = new Chart(ctx2, {
+      type:'doughnut',
+      data:{labels:cats,datasets:[{
+        data:cats.map(function(c){return catMap[c];}),
+        backgroundColor:cats.map(function(c){return getCatColor(c);}),
+        borderColor:'rgba(9,11,18,.8)',borderWidth:3,
+        hoverBorderColor:'rgba(9,11,18,.4)',hoverOffset:8
+      }]},
+      options:{
+        responsive:true,cutout:'65%',
+        plugins:{
+          legend:{labels:{color:'#7a82a0',font:{family:"'DM Sans',sans-serif",size:12},padding:16,boxWidth:10,boxHeight:10}},
+          tooltip:{backgroundColor:'rgba(9,11,18,.95)',titleColor:'#eef0f8',bodyColor:'#7a82a0',borderColor:'rgba(255,255,255,.08)',borderWidth:1,padding:12,cornerRadius:10}
+        }
+      }
+    });
+  } else {
+    expCanvas.style.display = 'none';
+    expLocked.style.display = 'flex';
+  }
+
+  // Salary chart (admin only)
+  if (chartSalaryInst) chartSalaryInst.destroy();
+  var salCanvas = document.getElementById('chartSalary');
+  var salLocked = document.getElementById('salaryChartLocked');
+  if (currentRole === 'admin') {
+    salCanvas.style.display = 'block';
+    salLocked.style.display = 'none';
+    var nowM = getToday().substring(0,7);
+    var salData = E.map(function(e){return calcSalary(e.id,nowM).net;});
+    var ctx3 = salCanvas.getContext('2d');
+    chartSalaryInst = new Chart(ctx3, {
+      type:'bar',
+      data:{labels:labels,datasets:[{
+        label:'Net Salary',data:salData,
+        backgroundColor:'rgba(46,204,138,0.50)',
+        hoverBackgroundColor:'rgba(46,204,138,0.80)',
+        borderRadius:8,borderSkipped:false
+      }]},
+      options:{
+        responsive:true,
+        plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(9,11,18,.95)',titleColor:'#eef0f8',bodyColor:'#7a82a0',borderColor:'rgba(255,255,255,.08)',borderWidth:1,padding:12,cornerRadius:10}},
+        scales:{
+          x:{ticks:CHART_DEFAULTS.ticks,grid:{display:false},border:{color:'rgba(255,255,255,.06)'}},
+          y:{ticks:CHART_DEFAULTS.ticks,grid:CHART_DEFAULTS.grid,border:{color:'transparent'}}
+        }
+      }
+    });
+  } else {
+    salCanvas.style.display = 'none';
+    salLocked.style.display = 'flex';
+  }
+}
+
+function renderLeaderboard() {
+  var fS = filterByDate(S, 'date');
+  var container = document.getElementById('leaderboard');
+  var sorted = E.map(function(e){
+    var cnt = fS.filter(function(s){return s.empId===e.id;}).reduce(function(a,b){return a+Number(b.count);},0);
+    return {name:e.name, id:e.id, cnt:cnt};
+  }).sort(function(a,b){return b.cnt-a.cnt;});
+  var max = sorted.length>0 ? sorted[0].cnt : 1;
+  if (sorted.length===0){container.innerHTML='<div style="color:var(--text2);text-align:center;padding:20px">No data</div>';return;}
+  var html = '';
+  sorted.slice(0,5).forEach(function(emp,i){
+    var rankClass = i===0?'gold':i===1?'silver':i===2?'bronze':'';
+    var pct = max>0 ? (emp.cnt/max*100) : 0;
+    var fillColor = i===0?'var(--amber)':i===1?'#a0a8b8':i===2?'#c08050':'var(--ac)';
+    html += '<div class="lb-row">'
+      +'<div class="lb-rank '+rankClass+'">'+(i+1)+'</div>'
+      +'<div class="avatar" style="background:'+avatarColor(emp.id)+'">'+getInitials(emp.name)+'</div>'
+      +'<div class="lb-info"><div class="lb-name">'+emp.name+'</div>'
+      +'<div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%;background:'+fillColor+'"></div></div></div>'
+      +'<div style="font-family:var(--mono);font-size:13px;font-weight:600">'+emp.cnt+'</div>'
+      +'</div>';
+  });
+  container.innerHTML = html;
+}
+
+function renderAttBreakdown() {
+  var fA = filterByDate(A, 'date');
+  var container = document.getElementById('attBreakdown');
+  var onTime = fA.filter(function(a){return a.status==='On time';}).length;
+  var late   = fA.filter(function(a){return a.status==='Late';}).length;
+  var absent = fA.filter(function(a){return a.status==='Absent';}).length;
+  var total  = fA.length || 1;
+  var rows = [
+    {label:'On Time', count:onTime, color:'var(--green)'},
+    {label:'Late', count:late, color:'var(--amber)'},
+    {label:'Absent', count:absent, color:'var(--red)'}
+  ];
+  var html = '';
+  rows.forEach(function(r){
+    var pct = Math.round(r.count/total*100);
+    html += '<div style="margin-bottom:16px">'
+      +'<div style="display:flex;justify-content:space-between;margin-bottom:4px">'
+      +'<span style="font-size:13px">'+r.label+'</span>'
+      +'<span style="font-family:var(--mono);font-size:13px">'+r.count+' ('+pct+'%)</span>'
+      +'</div>'
+      +'<div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%;background:'+r.color+'"></div></div>'
+      +'</div>';
+  });
+  container.innerHTML = html || '<div style="color:var(--text2)">No data</div>';
+}
+
+// ===== EMPLOYEES =====
+function addEmployee() {
+  var name = document.getElementById('empName').value.trim();
+  var selVal = document.getElementById('empRoleSel').value;
+  var role = selVal === '__other__' ? document.getElementById('empRole').value.trim() : selVal;
+  var salary = parseFloat(document.getElementById('empSalary').value) || 50000;
+  var comm = parseFloat(document.getElementById('empComm').value) || 0;
+  if (!name) {alert('Name required'); return;}
+  E.push({id:makeid(), name:name, role:role, salary:salary, commission:comm});
+  saveData();
+  populateSelects();
+  document.getElementById('empName').value='';
+  document.getElementById('empRoleSel').value='';
+  document.getElementById('empRole').value='';
+  document.getElementById('empRole').style.display='none';
+  document.getElementById('empSalary').value='';
+  document.getElementById('empComm').value='';
+  renderEmployees();
+}
+
+function removeEmployee(id) {
+  if (!confirm('Remove this employee? All related data will remain.')) return;
+  E = E.filter(function(e){return e.id!==id;});
+  saveData();
+  populateSelects();
+  renderEmployees();
+}
+
+function editEmployee(id) {
+  var e = E.find(function(x){return x.id===id;});
+  if (!e) return;
+  var row = document.getElementById('emprow_'+id);
+  var inp = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1);width:100%"';
+  var selS = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1)"';
+  var roleOpts = P.map(function(p){return '<option value="'+p.title+'"'+(p.title===e.role?' selected':'')+'>'+p.title+'</option>';}).join('');
+  if (!roleOpts) roleOpts = '<option value="'+e.role+'">'+e.role+'</option>';
+  row.innerHTML = '<td><input id="eedit_name_'+id+'" value="'+e.name.replace(/"/g,'&quot;')+'" '+inp+'></td>'
+    +'<td><select id="eedit_role_'+id+'" '+selS+'>'+roleOpts+'</select></td>'
+    +'<td><input type="number" id="eedit_sal_'+id+'" value="'+e.salary+'" '+inp+'></td>'
+    +'<td><input type="number" id="eedit_com_'+id+'" value="'+e.commission+'" '+inp+'></td>'
+    +'<td style="display:flex;gap:6px"><button class="btn btn-green btn-sm" onclick="saveEmployeeEdit(\''+id+'\')">Save</button><button class="btn btn-ghost btn-sm" onclick="renderEmployees()">Cancel</button></td>';
+}
+
+function saveEmployeeEdit(id) {
+  var e = E.find(function(x){return x.id===id;});
+  if (!e) return;
+  var name = document.getElementById('eedit_name_'+id).value.trim();
+  var role = document.getElementById('eedit_role_'+id).value;
+  var sal = parseFloat(document.getElementById('eedit_sal_'+id).value);
+  var com = parseFloat(document.getElementById('eedit_com_'+id).value);
+  if (!name) {alert('Name required'); return;}
+  A.forEach(function(a){if(a.empId===id) a.empName=name;});
+  S.forEach(function(s){if(s.empId===id) s.empName=name;});
+  e.name=name; e.role=role; if(sal) e.salary=sal; if(!isNaN(com)) e.commission=com;
+  saveData();
+  populateSelects();
+  renderEmployees();
+}
+
+function renderEmployees() {
+  document.getElementById('empCount').textContent = '(' + E.length + ')';
+  var tbody = document.getElementById('empTable');
+  if (E.length===0){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text2);padding:30px">No employees yet</td></tr>';return;}
+  var html = '';
+  E.forEach(function(e){
+    html += '<tr id="emprow_'+e.id+'">'
+      +'<td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="background:'+avatarColor(e.id)+'">'+getInitials(e.name)+'</div><span>'+e.name+'</span></div></td>'
+      +'<td><span style="color:var(--text2)">'+e.role+'</span></td>'
+      +'<td><span style="font-family:var(--mono)">'+pkr(e.salary)+'</span></td>'
+      +'<td>'+e.commission+'%</td>'
+      +(currentRole==='admin'?'<td style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="editEmployee(\''+e.id+'\')">Edit</button><button class="btn btn-danger btn-sm" onclick="removeEmployee(\''+e.id+'\')">Remove</button></td>':'<td></td>')
+      +'</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+// ===== ATTENDANCE =====
+function setAttToday() {
+  document.getElementById('attDate').value = getToday();
+}
+
+function renderAttGrid() {
+  var container = document.getElementById('attGrid');
+  if (E.length===0){container.innerHTML='<div style="color:var(--text2)">No employees</div>';return;}
+  var html = '';
+  E.forEach(function(e){
+    html += '<div class="att-row">'
+      +'<div class="avatar" style="background:'+avatarColor(e.id)+'">'+getInitials(e.name)+'</div>'
+      +'<div class="att-name">'+e.name+'</div>'
+      +'<select class="att-select" id="att_'+e.id+'">'
+      +'<option value="On time">On time</option>'
+      +'<option value="Late">Late</option>'
+      +'<option value="Absent">Absent</option>'
+      +'</select>'
+      +'</div>';
+  });
+  container.innerHTML = html;
+}
+
+function saveAttendance() {
+  var date = document.getElementById('attDate').value;
+  if (!date){alert('Select a date');return;}
+  var exists = A.some(function(a){return a.date===date;});
+  if (exists && !confirm('Attendance for '+date+' already exists. Overwrite?')) return;
+  // Remove existing for that date
+  A = A.filter(function(a){return a.date!==date;});
+  E.forEach(function(e){
+    var sel = document.getElementById('att_'+e.id);
+    if (!sel) return;
+    A.push({id:makeid(), empId:e.id, empName:e.name, date:date, status:sel.value, loggedBy:currentUser});
+  });
+  saveData();
+  renderAttLog();
+  alert('Attendance saved for ' + date);
+}
+
+function removeAtt(id) {
+  if (!confirm('Remove this attendance record?')) return;
+  A = A.filter(function(a){return a.id!==id;});
+  saveData();
+  renderAttLog();
+}
+
+function editAtt(id) {
+  var a = A.find(function(x){return x.id===id;});
+  if (!a) return;
+  var row = document.getElementById('attrow_'+id);
+  var inp = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1)"';
+  var selS = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1)"';
+  var logBadge = a.loggedBy==='admin'?'badge-blue':'badge-purple';
+  row.innerHTML = '<td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:24px;height:24px;font-size:9px;background:'+avatarColor(a.empId)+'">'+getInitials(a.empName)+'</div>'+a.empName+'</div></td>'
+    +'<td><input type="date" id="aedit_date_'+id+'" value="'+a.date+'" '+inp+'></td>'
+    +'<td><select id="aedit_status_'+id+'" '+selS+'>'
+    +'<option value="On time"'+(a.status==='On time'?' selected':'')+'>On time</option>'
+    +'<option value="Late"'+(a.status==='Late'?' selected':'')+'>Late</option>'
+    +'<option value="Absent"'+(a.status==='Absent'?' selected':'')+'>Absent</option>'
+    +'</select></td>'
+    +'<td><span class="badge '+logBadge+'">'+(a.loggedBy||'—')+'</span></td>'
+    +'<td style="display:flex;gap:6px"><button class="btn btn-green btn-sm" onclick="saveAttEdit(\''+id+'\')">Save</button><button class="btn btn-ghost btn-sm" onclick="renderAttLog()">Cancel</button></td>';
+}
+
+function saveAttEdit(id) {
+  var a = A.find(function(x){return x.id===id;});
+  if (!a) return;
+  a.date = document.getElementById('aedit_date_'+id).value;
+  a.status = document.getElementById('aedit_status_'+id).value;
+  saveData();
+  renderAttLog();
+}
+
+function renderAttLog() {
+  var tbody = document.getElementById('attTable');
+  var statsEl = document.getElementById('attEmpStats');
+  var note = document.getElementById('attLogRangeNote');
+  if (note) note.textContent = filterLabel();
+
+  var searchEl = document.getElementById('attEmpSearch');
+  var q = searchEl ? searchEl.value.trim().toLowerCase() : '';
+
+  var rows = filterByDate(A, 'date');
+  rows = rows.slice().sort(function(a,b){return b.date.localeCompare(a.date);});
+
+  // Filter by name search
+  if (q) rows = rows.filter(function(a){return a.empName.toLowerCase().indexOf(q) !== -1;});
+
+  // Employee stats strip
+  if (statsEl) {
+    if (q && rows.length > 0) {
+      var onTime  = rows.filter(function(a){return a.status==='On time';}).length;
+      var late    = rows.filter(function(a){return a.status==='Late';}).length;
+      var absent  = rows.filter(function(a){return a.status==='Absent';}).length;
+      var total   = rows.length;
+      var rate    = Math.round(onTime / total * 100);
+      // group by unique employee names matched
+      var names = [];
+      rows.forEach(function(a){if(names.indexOf(a.empName)===-1) names.push(a.empName);});
+      statsEl.style.display = '';
+      statsEl.innerHTML = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">'
+        + '<div class="avatar" style="width:28px;height:28px;font-size:10px;background:'+avatarColor(rows[0].empId)+'">'+getInitials(rows[0].empName)+'</div>'
+        + '<span style="font-weight:600;font-size:14px">'+names.join(', ')+'</span>'
+        + '<span style="font-size:11px;color:var(--text3);margin-left:4px">· '+total+' records in period</span>'
+        + '</div>'
+        + '<div style="display:flex;gap:24px;flex-wrap:wrap">'
+        + '<div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--green)">'+onTime+'</div><div style="font-size:11px;color:var(--text2)">On Time</div></div>'
+        + '<div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--amber)">'+late+'</div><div style="font-size:11px;color:var(--text2)">Late</div></div>'
+        + '<div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--red)">'+absent+'</div><div style="font-size:11px;color:var(--text2)">Absent</div></div>'
+        + '<div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--ac)">'+rate+'%</div><div style="font-size:11px;color:var(--text2)">On-Time Rate</div></div>'
+        + '</div>';
+    } else {
+      statsEl.style.display = 'none';
+    }
+  }
+
+  if (rows.length===0){
+    tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text2);padding:30px">'+(q?'No records for "'+q+'"':'No records')+'</td></tr>';
+    return;
+  }
+  var html = '';
+  rows.forEach(function(a){
+    var badge = a.status==='On time'?'badge-green':a.status==='Late'?'badge-amber':'badge-red';
+    var logBadge = a.loggedBy==='admin'?'badge-blue':'badge-purple';
+    html += '<tr id="attrow_'+a.id+'">'
+      +'<td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:24px;height:24px;font-size:9px;background:'+avatarColor(a.empId)+'">'+getInitials(a.empName)+'</div>'+a.empName+'</div></td>'
+      +'<td style="font-family:var(--mono)">'+a.date+'</td>'
+      +'<td><span class="badge '+badge+'">'+a.status+'</span></td>'
+      +'<td><span class="badge '+logBadge+'">'+(a.loggedBy||'—')+'</span></td>'
+      +'<td style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="editAtt(\''+a.id+'\')">Edit</button><button class="btn btn-danger btn-sm" onclick="removeAtt(\''+a.id+'\')">Remove</button></td>'
+      +'</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+// ===== SALARY =====
+function addAdj() {
+  var empId = document.getElementById('adjEmp').value;
+  var month = document.getElementById('adjMonth').value;
+  var amt = parseFloat(document.getElementById('adjAmt').value);
+  var reason = document.getElementById('adjReason').value.trim();
+  if (!empId||!month||!amt||!reason){alert('Fill all fields');return;}
+  J.push({id:makeid(), empId:empId, month:month, amount:amt, reason:reason});
+  saveData();
+  document.getElementById('adjAmt').value='';
+  document.getElementById('adjReason').value='';
+  renderSalary();
+  renderAdj();
+}
+
+function removeAdj(id) {
+  if (!confirm('Remove this deduction?')) return;
+  J = J.filter(function(j){return j.id!==id;});
+  saveData();
+  renderSalary();
+  renderAdj();
+}
+
+function renderSalary() {
+  var monthVal = document.getElementById('salMonth').value;
+  if (!monthVal) return;
+  var tbody = document.getElementById('salTable');
+  if (E.length===0){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--text2);padding:30px">No employees</td></tr>';return;}
+  var html = '';
+  E.forEach(function(e){
+    var c = calcSalary(e.id, monthVal);
+    var statusBadge = c.net >= BASE_SALARY ? 'badge-green' : 'badge-amber';
+    html += '<tr>'
+      +'<td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:24px;height:24px;font-size:9px;background:'+avatarColor(e.id)+'">'+getInitials(e.name)+'</div>'+e.name+'</div></td>'
+      +'<td style="font-family:var(--mono)">'+c.salesCnt+'</td>'
+      +'<td style="font-family:var(--mono)">'+pkr(BASE_SALARY)+'</td>'
+      +'<td><span style="font-family:var(--mono)">'+pkr(c.punctBonus)+'</span>'+(c.punctReason?'<div class="salary-reason">'+c.punctReason+'</div>':'')+'</td>'
+      +'<td style="font-family:var(--mono)">'+pkr(c.salesBonus)+'</td>'
+      +'<td style="font-family:var(--mono);color:var(--red)">'+pkr(c.docks)+'</td>'
+      +'<td style="font-family:var(--mono);font-weight:700">'+pkr(c.net)+'</td>'
+      +'<td><span class="badge '+statusBadge+'">'+(c.net>=BASE_SALARY?'Good':'Docked')+'</span></td>'
+      +'</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+function editAdj(id) {
+  var j = J.find(function(x){return x.id===id;});
+  if (!j) return;
+  var row = document.getElementById('adjrow_'+id);
+  var inp = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1);width:100%"';
+  var selS = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1)"';
+  var empOpts = E.map(function(e){return '<option value="'+e.id+'"'+(e.id===j.empId?' selected':'')+'>'+e.name+'</option>';}).join('');
+  row.innerHTML = '<td><select id="jedit_emp_'+id+'" '+selS+'>'+empOpts+'</select></td>'
+    +'<td><input type="month" id="jedit_month_'+id+'" value="'+j.month+'" '+inp+'></td>'
+    +'<td><input type="number" id="jedit_amt_'+id+'" value="'+j.amount+'" '+inp+'></td>'
+    +'<td><input id="jedit_reason_'+id+'" value="'+j.reason.replace(/"/g,'&quot;')+'" '+inp+'></td>'
+    +'<td style="display:flex;gap:6px"><button class="btn btn-green btn-sm" onclick="saveAdjEdit(\''+id+'\')">Save</button><button class="btn btn-ghost btn-sm" onclick="renderAdj()">Cancel</button></td>';
+}
+
+function saveAdjEdit(id) {
+  var j = J.find(function(x){return x.id===id;});
+  if (!j) return;
+  var empId = document.getElementById('jedit_emp_'+id).value;
+  var month = document.getElementById('jedit_month_'+id).value;
+  var amt = parseFloat(document.getElementById('jedit_amt_'+id).value);
+  var reason = document.getElementById('jedit_reason_'+id).value.trim();
+  if (!empId||!month||!amt||!reason) {alert('Fill all fields'); return;}
+  j.empId=empId; j.month=month; j.amount=amt; j.reason=reason;
+  saveData();
+  renderSalary();
+  renderAdj();
+}
+
+function renderAdj() {
+  var tbody = document.getElementById('adjTable');
+  if (J.length===0){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text2);padding:30px">No deductions</td></tr>';return;}
+  var html = '';
+  var sorted = J.slice().sort(function(a,b){return b.month.localeCompare(a.month);});
+  sorted.forEach(function(j){
+    var emp = E.find(function(e){return e.id===j.empId;}) || {name:'Unknown'};
+    html += '<tr id="adjrow_'+j.id+'">'
+      +'<td>'+emp.name+'</td>'
+      +'<td style="font-family:var(--mono)">'+monthLabel(j.month)+'</td>'
+      +'<td style="font-family:var(--mono);color:var(--red)">'+pkr(j.amount)+'</td>'
+      +'<td>'+j.reason+'</td>'
+      +(currentRole==='admin'?'<td style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="editAdj(\''+j.id+'\')">Edit</button><button class="btn btn-danger btn-sm" onclick="removeAdj(\''+j.id+'\')">Remove</button></td>':'<td></td>')
+      +'</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+// ===== SALES =====
+function addSale() {
+  var empId = document.getElementById('saleEmp').value;
+  var date = document.getElementById('saleDate').value;
+  var cnt = parseInt(document.getElementById('saleCnt').value);
+  var rev = currentRole==='admin' ? (parseFloat(document.getElementById('saleRev').value)||0) : 0;
+  if (!empId||!date||!cnt){alert('Fill required fields');return;}
+  var emp = E.find(function(e){return e.id===empId;});
+  S.push({id:makeid(), empId:empId, empName:emp?emp.name:'', date:date, count:cnt, revenue:rev});
+  saveData();
+  document.getElementById('saleCnt').value='';
+  if (currentRole==='admin') document.getElementById('saleRev').value='';
+  renderSales();
+}
+
+function removeSale(id) {
+  if (!confirm('Remove this sales record?')) return;
+  S = S.filter(function(s){return s.id!==id;});
+  saveData();
+  renderSales();
+}
+
+function renderSales() {
+  var filtered = filterByDate(S, 'date');
+  var note = document.getElementById('salesRangeNote');
+  if (note) note.textContent = filterLabel();
+  // Monthly summary
+  var summMap = {};
+  filtered.forEach(function(s){
+    var k = s.empId;
+    if (!summMap[k]) summMap[k] = {empName:s.empName, cnt:0, rev:0, empId:k};
+    summMap[k].cnt += Number(s.count);
+    summMap[k].rev += Number(s.revenue||0);
+  });
+  // Always include all employees even with no sales in period
+  E.forEach(function(e){
+    if (!summMap[e.id]) summMap[e.id] = {empName:e.name, cnt:0, rev:0, empId:e.id};
+  });
+  var summArr = Object.values(summMap).sort(function(a,b){return b.cnt-a.cnt;});
+  var sumHtml = '';
+  summArr.forEach(function(r){
+    sumHtml += '<tr>'
+      +'<td>'+r.empName+'</td>'
+      +'<td style="font-family:var(--mono)">'+r.cnt+'</td>'
+      +(currentRole==='admin'?'<td style="font-family:var(--mono)">'+pkr(r.rev)+'</td>':'')
+      +(currentRole==='admin'?'<td style="font-size:12px;color:var(--text2)">'+getSalesBonusTier(r.cnt)+'</td>':'')
+      +'</tr>';
+  });
+  document.getElementById('saleSummary').innerHTML = sumHtml || '<tr><td colspan="4" style="text-align:center;color:var(--text2);padding:20px">No data</td></tr>';
+
+  // Daily log
+  var sorted = filtered.slice().sort(function(a,b){return b.date.localeCompare(a.date);});
+  var logHtml = '';
+  sorted.forEach(function(s){
+    logHtml += '<tr id="salerow_'+s.id+'">'
+      +'<td>'+s.empName+'</td>'
+      +'<td style="font-family:var(--mono)">'+s.date+'</td>'
+      +'<td style="font-family:var(--mono)">'+s.count+'</td>'
+      +(currentRole==='admin'?'<td style="font-family:var(--mono)">'+pkr(s.revenue||0)+'</td>':'')
+      +'<td style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="editSale(\''+s.id+'\')">Edit</button><button class="btn btn-danger btn-sm" onclick="removeSale(\''+s.id+'\')">Remove</button></td>'
+      +'</tr>';
+  });
+  document.getElementById('saleTable').innerHTML = logHtml || '<tr><td colspan="5" style="text-align:center;color:var(--text2);padding:20px">No records</td></tr>';
+}
+
+function editSale(id) {
+  var s = S.find(function(x){return x.id===id;});
+  if (!s) return;
+  var row = document.getElementById('salerow_'+id);
+  var inp = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1);width:100%"';
+  var selS = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1)"';
+  var empOpts = E.map(function(e){return '<option value="'+e.id+'"'+(e.id===s.empId?' selected':'')+'>'+e.name+'</option>';}).join('');
+  row.innerHTML = '<td><select id="sedit_emp_'+id+'" '+selS+'>'+empOpts+'</select></td>'
+    +'<td><input type="date" id="sedit_date_'+id+'" value="'+s.date+'" '+inp+'></td>'
+    +'<td><input type="number" id="sedit_cnt_'+id+'" value="'+s.count+'" '+inp+'></td>'
+    +(currentRole==='admin'?'<td><input type="number" id="sedit_rev_'+id+'" value="'+(s.revenue||0)+'" '+inp+'></td>':'')
+    +'<td style="display:flex;gap:6px"><button class="btn btn-green btn-sm" onclick="saveSaleEdit(\''+id+'\')">Save</button><button class="btn btn-ghost btn-sm" onclick="renderSales()">Cancel</button></td>';
+}
+
+function saveSaleEdit(id) {
+  var s = S.find(function(x){return x.id===id;});
+  if (!s) return;
+  var empId = document.getElementById('sedit_emp_'+id).value;
+  var emp = E.find(function(e){return e.id===empId;});
+  s.empId=empId; s.empName=emp?emp.name:'';
+  s.date=document.getElementById('sedit_date_'+id).value;
+  s.count=parseInt(document.getElementById('sedit_cnt_'+id).value)||s.count;
+  if (currentRole==='admin') s.revenue=parseFloat(document.getElementById('sedit_rev_'+id).value)||0;
+  saveData();
+  renderSales();
+}
+
+// ===== EXPENSES =====
+function addExpense() {
+  var cat = document.getElementById('expCat').value;
+  var date = document.getElementById('expDate').value;
+  var amt = parseFloat(document.getElementById('expAmt').value);
+  var notes = document.getElementById('expNotes').value.trim();
+  if (!cat||!date||!amt){alert('Fill required fields');return;}
+  X.push({id:makeid(), category:cat, date:date, amount:amt, notes:notes});
+  saveData();
+  document.getElementById('expAmt').value='';
+  document.getElementById('expNotes').value='';
+  renderExpenses();
+}
+
+function removeExpense(id) {
+  if (!confirm('Remove this expense?')) return;
+  X = X.filter(function(x){return x.id!==id;});
+  saveData();
+  renderExpenses();
+}
+
+function rebuildExpCatFilterSelect() {
+  var sel = document.getElementById('expCatFilter');
+  if (!sel) return;
+  var val = sel.value;
+  sel.innerHTML = '<option value="">All Categories</option>';
+  allCategories().forEach(function(name){
+    var opt = document.createElement('option');
+    opt.value = name; opt.textContent = name;
+    sel.appendChild(opt);
+  });
+  sel.value = val;
+}
+
+function renderExpenses() {
+  if (currentRole !== 'admin') return;
+  var fX = filterByDate(X, 'date');
+  var catF = document.getElementById('expCatFilter') ? document.getElementById('expCatFilter').value : '';
+  if (catF) fX = fX.filter(function(x){return x.category===catF;});
+  var total = fX.reduce(function(a,b){return a+Number(b.amount);},0);
+  var catMap = {};
+  fX.forEach(function(x){catMap[x.category]=(catMap[x.category]||0)+1;});
+  var topCat = Object.keys(catMap).sort(function(a,b){return catMap[b]-catMap[a];})[0] || '—';
+  var lbl = filterLabel();
+  var kpiEl = document.getElementById('expKpi');
+  if (kpiEl) kpiEl.innerHTML =
+    kpiCard('Total Daily Expenses', pkr(total), lbl)
+    + kpiCard('Entries', fX.length, lbl)
+    + kpiCard('Top Category', topCat, 'Most frequent');
+  var tbody = document.getElementById('expTable');
+  if (!tbody) return;
+  if (fX.length===0){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text2);padding:30px">No expenses for this period</td></tr>';return;}
+  var sorted = fX.slice().sort(function(a,b){return b.date.localeCompare(a.date);});
+  var html = '';
+  sorted.forEach(function(x){
+    var cat = x.category;
+    var catColor = getCatColor(cat);
+    html += '<tr id="exprow_'+x.id+'">'
+      +'<td style="font-family:var(--mono)">'+x.date+'</td>'
+      +'<td><span class="badge" style="background:'+catColor+'22;color:'+catColor+'">'+cat+'</span></td>'
+      +'<td style="font-family:var(--mono)">'+pkr(x.amount)+'</td>'
+      +'<td style="color:var(--text2)">'+x.notes+'</td>'
+      +'<td style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="editExpense(\''+x.id+'\')">Edit</button><button class="btn btn-danger btn-sm" onclick="removeExpense(\''+x.id+'\')">Remove</button></td>'
+      +'</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+function editExpense(id) {
+  var x = X.find(function(e){return e.id===id;});
+  if (!x) return;
+  var row = document.getElementById('exprow_'+id);
+  var inp = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1);width:100%"';
+  var selS = 'style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text1)"';
+  var catOpts = allCategories().map(function(c){return '<option value="'+c+'"'+(c===x.category?' selected':'')+'>'+c+'</option>';}).join('');
+  row.innerHTML = '<td><input type="date" id="xedit_date_'+id+'" value="'+x.date+'" '+inp+'></td>'
+    +'<td><select id="xedit_cat_'+id+'" '+selS+'>'+catOpts+'</select></td>'
+    +'<td><input type="number" id="xedit_amt_'+id+'" value="'+x.amount+'" '+inp+'></td>'
+    +'<td><input id="xedit_notes_'+id+'" value="'+(x.notes||'').replace(/"/g,'&quot;')+'" '+inp+'></td>'
+    +'<td style="display:flex;gap:6px"><button class="btn btn-green btn-sm" onclick="saveExpenseEdit(\''+id+'\')">Save</button><button class="btn btn-ghost btn-sm" onclick="renderExpenses()">Cancel</button></td>';
+}
+
+function saveExpenseEdit(id) {
+  var x = X.find(function(e){return e.id===id;});
+  if (!x) return;
+  x.date = document.getElementById('xedit_date_'+id).value;
+  x.category = document.getElementById('xedit_cat_'+id).value;
+  x.amount = parseFloat(document.getElementById('xedit_amt_'+id).value)||x.amount;
+  x.notes = document.getElementById('xedit_notes_'+id).value.trim();
+  saveData();
+  renderExpenses();
+}
+
+// ===== RECURRING EXPENSES =====
+function rebuildRecCatSelect() {
+  var sel = document.getElementById('recCat');
+  if (!sel) return;
+  var val = sel.value;
+  sel.innerHTML = '';
+  allCategories().forEach(function(name){
+    var opt = document.createElement('option');
+    opt.value = name; opt.textContent = name;
+    sel.appendChild(opt);
+  });
+  sel.value = val || 'Rent';
+}
+
+var currentExpTab = 'monthly';
+
+function switchExpTab(tab) {
+  currentExpTab = tab;
+  ['monthly','daily'].forEach(function(t){
+    var panel = document.getElementById('exp-panel-'+t);
+    var btn   = document.getElementById('est-'+t);
+    if (panel) panel.style.display = t===tab ? '' : 'none';
+    if (btn)   btn.classList.toggle('active', t===tab);
+  });
+  if (tab==='monthly') { rebuildRecCatSelect(); renderRecurring(); renderMonthlyKpi(); }
+  if (tab==='daily')   { rebuildExpCatSelect(); rebuildExpCatFilterSelect(); renderExpenses(); renderCategories(); }
+}
+
+function toggleExpForm() {
+  var wrap = document.getElementById('expFormWrap');
+  if (!wrap) return;
+  wrap.style.display = wrap.style.display === 'none' ? '' : 'none';
+  if (wrap.style.display !== 'none') rebuildExpCatSelect();
+}
+
+function toggleCatForm() {
+  var wrap = document.getElementById('catFormWrap');
+  if (!wrap) return;
+  wrap.style.display = wrap.style.display === 'none' ? '' : 'none';
+  if (wrap.style.display !== 'none') renderCategories();
+}
+
+function renderMonthlyKpi() {
+  var total = R.reduce(function(a,b){return a+Number(b.amount);},0);
+  var paid  = R.filter(function(r){return getRecurringStatus(r)==='paid';}).length;
+  var overdue = R.filter(function(r){return getRecurringStatus(r)==='overdue';}).length;
+  var el = document.getElementById('expKpiMonthly');
+  if (!el) return;
+  el.innerHTML = kpiCard('Total Fixed Monthly', pkr(total), R.length+' bills')
+    + kpiCard('Paid This Month', paid, 'of '+R.length)
+    + kpiCard('Overdue', overdue, overdue>0?'Action needed':'All clear');
+}
+
+function toggleRecForm() {
+  var wrap = document.getElementById('recFormWrap');
+  if (!wrap) return;
+  var open = wrap.style.display === 'none';
+  wrap.style.display = open ? 'block' : 'none';
+  if (open) {
+    rebuildRecCatSelect();
+    document.getElementById('recDay').value = '5';
+  }
+}
+
+function addRecurring() {
+  var name  = document.getElementById('recName').value.trim();
+  var cat   = document.getElementById('recCat').value;
+  var amt   = parseFloat(document.getElementById('recAmt').value) || 0;
+  var day   = parseInt(document.getElementById('recDay').value) || 1;
+  var notes = document.getElementById('recNotes').value.trim();
+  if (!name) { alert('Name required'); return; }
+  R.push({id: makeid(), name: name, category: cat, amount: amt, dayOfMonth: day, notes: notes});
+  saveData();
+  document.getElementById('recName').value  = '';
+  document.getElementById('recAmt').value   = '';
+  document.getElementById('recNotes').value = '';
+  document.getElementById('recFormWrap').style.display = 'none';
+  renderRecurring();
+}
+
+function removeRecurring(id) {
+  if (!confirm('Remove this recurring expense?')) return;
+  R = R.filter(function(r){ return r.id !== id; });
+  saveData();
+  renderRecurring();
+}
+
+function editRecurringAmt(id) { editRecurring(id); }
+
+function editRecurring(id) {
+  var rec = R.find(function(r){return r.id===id;});
+  if (!rec) return;
+  var card = document.getElementById('reccard_'+id);
+  if (!card) return;
+  var color = getCatColor(rec.category);
+  var catOpts = allCategories().map(function(c){return '<option value="'+c+'"'+(c===rec.category?' selected':'')+'>'+c+'</option>';}).join('');
+  var inp = 'style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text1);width:100%;box-sizing:border-box"';
+  var selS = 'style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text1);width:100%;box-sizing:border-box"';
+  card.innerHTML = '<div class="rec-accent" style="background:linear-gradient(90deg,'+color+','+color+'88)"></div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 0">'
+    +'<div><label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Name</label><input id="redit_name_'+id+'" value="'+rec.name.replace(/"/g,'&quot;')+'" '+inp+'></div>'
+    +'<div><label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Category</label><select id="redit_cat_'+id+'" '+selS+'>'+catOpts+'</select></div>'
+    +'<div><label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Amount (PKR)</label><input type="number" id="redit_amt_'+id+'" value="'+rec.amount+'" '+inp+'></div>'
+    +'<div><label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Day of Month</label><input type="number" id="redit_day_'+id+'" value="'+rec.dayOfMonth+'" min="1" max="31" '+inp+'></div>'
+    +'<div style="grid-column:span 2"><label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Notes</label><input id="redit_notes_'+id+'" value="'+(rec.notes||'').replace(/"/g,'&quot;')+'" '+inp+'></div>'
+    +'</div>'
+    +'<div style="display:flex;gap:8px;margin-top:10px">'
+    +'<button class="btn btn-green btn-sm" onclick="saveRecurringEdit(\''+id+'\')">Save</button>'
+    +'<button class="btn btn-ghost btn-sm" onclick="renderRecurring()">Cancel</button>'
+    +'</div>';
+}
+
+function saveRecurringEdit(id) {
+  var rec = R.find(function(r){return r.id===id;});
+  if (!rec) return;
+  var name = document.getElementById('redit_name_'+id).value.trim();
+  var cat = document.getElementById('redit_cat_'+id).value;
+  var amt = parseFloat(document.getElementById('redit_amt_'+id).value);
+  var day = parseInt(document.getElementById('redit_day_'+id).value);
+  var notes = document.getElementById('redit_notes_'+id).value.trim();
+  if (!name||!amt||!day) {alert('Fill required fields'); return;}
+  rec.name=name; rec.category=cat; rec.amount=amt; rec.dayOfMonth=day; rec.notes=notes;
+  saveData();
+  renderRecurring();
+}
+
+function markRecurringPaid(id) {
+  var rec = R.find(function(r){ return r.id === id; });
+  if (!rec) return;
+  var today = getToday();
+  var monthPrefix = today.substring(0, 7);
+  // Check already paid this month
+  var alreadyPaid = X.some(function(x){
+    return x.category === rec.category && x.date.startsWith(monthPrefix) && x.recurringId === id;
+  });
+  if (alreadyPaid) { alert('Already marked as paid for this month.'); return; }
+  var dueDate = monthPrefix + '-' + String(rec.dayOfMonth).padStart(2, '0');
+  X.push({
+    id: makeid(), category: rec.category, date: dueDate,
+    amount: rec.amount, notes: rec.notes + ' [Auto - ' + rec.name + ']',
+    recurringId: id
+  });
+  saveData();
+  renderRecurring();
+  renderExpenses();
+}
+
+function getRecurringStatus(rec) {
+  var today = getToday();
+  var todayDay = parseInt(today.substring(8, 10));
+  var monthPrefix = today.substring(0, 7);
+  var paid = X.some(function(x){
+    return x.category === rec.category && x.date.startsWith(monthPrefix) && x.recurringId === rec.id;
+  });
+  if (paid) return 'paid';
+  if (todayDay > rec.dayOfMonth) return 'overdue';
+  return 'due';
+}
+
+function getRecurringHistory(rec) {
+  // count how many months paid in last 6
+  var paid = 0;
+  var today = new Date();
+  for (var i = 0; i < 6; i++) {
+    var d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+    var mp = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+    if (X.some(function(x){ return x.category === rec.category && x.date.startsWith(mp) && x.recurringId === rec.id; })) {
+      paid++;
+    }
+  }
+  return paid;
+}
+
+function renderRecurring() {
+  var grid = document.getElementById('recGrid');
+  if (!grid) return;
+  if (R.length === 0) {
+    grid.innerHTML = '<div style="color:var(--text2);font-size:13px;padding:8px 0">No recurring expenses defined. Click "+ Add Recurring" to add one.</div>';
+    return;
+  }
+  var today = getToday();
+  var todayDay = parseInt(today.substring(8, 10));
+  var html = '';
+  R.forEach(function(rec) {
+    var status = getRecurringStatus(rec);
+    var history = getRecurringHistory(rec);
+    var color = getCatColor(rec.category);
+    var statusLabel = status === 'paid' ? 'Paid this month' : status === 'overdue' ? 'Overdue' : 'Due on ' + rec.dayOfMonth + ordinal(rec.dayOfMonth);
+    var nextDue = today.substring(0,7) + '-' + String(rec.dayOfMonth).padStart(2,'0');
+    html += '<div class="rec-card" id="reccard_' + rec.id + '">'
+      + '<div class="rec-accent" style="background:linear-gradient(90deg,' + color + ',' + color + '88)"></div>'
+      + '<div class="rec-card-top">'
+      +   '<div>'
+      +     '<div class="rec-card-name">' + rec.name + '</div>'
+      +     '<div class="rec-card-meta">Due every <strong>' + rec.dayOfMonth + ordinal(rec.dayOfMonth) + '</strong> · ' + rec.category + '</div>'
+      +   '</div>'
+      +   '<div style="text-align:right">'
+      +     '<div class="rec-card-amount">' + pkr(rec.amount) + '</div>'
+      +   '</div>'
+      + '</div>'
+      + (rec.notes ? '<div style="font-size:12px;color:var(--text2);font-style:italic">' + rec.notes + '</div>' : '')
+      + '<div class="rec-card-bottom">'
+      +   '<span class="rec-status ' + status + '"><span class="sdot"></span>' + statusLabel + '</span>'
+      +   '<div style="display:flex;gap:6px;align-items:center">'
+      +     '<span class="rec-history">Paid <span>' + history + '/6</span> months</span>'
+      +     (status !== 'paid' ? '<button class="btn btn-green btn-sm" onclick="markRecurringPaid(\'' + rec.id + '\')">Mark Paid</button>' : '<span style="font-size:12px;color:var(--green)">✓ Done</span>')
+      +     '<button class="btn btn-ghost btn-sm" onclick="editRecurring(\'' + rec.id + '\')">Edit</button>'
+      +     '<button class="btn btn-danger btn-sm" onclick="removeRecurring(\'' + rec.id + '\')">×</button>'
+      +   '</div>'
+      + '</div>'
+      + '</div>';
+  });
+  grid.innerHTML = html;
+}
+
+function ordinal(n) {
+  var s = ['th','st','nd','rd'], v = n % 100;
+  return s[(v-20)%10] || s[v] || s[0];
+}
+
+// ===== EXPENSE CATEGORIES CRUD =====
+function addCategory() {
+  var name = document.getElementById('catName').value.trim();
+  if (!name) {alert('Category name required'); return;}
+  if (allCategories().map(function(c){return c.toLowerCase();}).indexOf(name.toLowerCase()) !== -1) {
+    alert('Category already exists'); return;
+  }
+  var colorIdx = C.length % CUSTOM_CAT_PALETTE.length;
+  var color = document.getElementById('catColor').value || CUSTOM_CAT_PALETTE[colorIdx];
+  C.push({id:makeid(), name:name, color:color});
+  saveData();
+  document.getElementById('catName').value='';
+  document.getElementById('catColor').value='#20c9b0';
+  rebuildExpCatSelect();
+  renderCategories();
+}
+
+function removeCategory(id) {
+  var cat = C.find(function(c){return c.id===id;});
+  if (!cat) return;
+  var inUse = X.some(function(x){return x.category===cat.name;});
+  if (inUse && !confirm('"'+cat.name+'" is used in existing expenses. Remove anyway?')) return;
+  C = C.filter(function(c){return c.id!==id;});
+  saveData();
+  rebuildExpCatSelect();
+  renderCategories();
+}
+
+function editCategoryInline(id) {
+  var cat = C.find(function(c){return c.id===id;});
+  if (!cat) return;
+  var row = document.getElementById('catrow_'+id);
+  row.innerHTML = '<td><input id="cedit_name_'+id+'" value="'+cat.name+'" style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);width:140px"></td>'
+    +'<td><input type="color" id="cedit_color_'+id+'" value="'+cat.color+'" style="width:40px;height:28px;border:none;background:none;cursor:pointer;border-radius:4px"></td>'
+    +'<td><span class="badge" style="background:'+cat.color+'22;color:'+cat.color+'">preview</span></td>'
+    +'<td style="display:flex;gap:6px">'
+    +'<button class="btn btn-green btn-sm" onclick="saveCategoryEdit(\''+id+'\')">Save</button>'
+    +'<button class="btn btn-ghost btn-sm" onclick="renderCategories()">Cancel</button>'
+    +'</td>';
+}
+
+function saveCategoryEdit(id) {
+  var newName = document.getElementById('cedit_name_'+id).value.trim();
+  var newColor = document.getElementById('cedit_color_'+id).value;
+  if (!newName) {alert('Name required'); return;}
+  var cat = C.find(function(c){return c.id===id;});
+  var oldName = cat.name;
+  // Update all expense records using old name
+  X.forEach(function(x){if(x.category===oldName) x.category=newName;});
+  cat.name = newName;
+  cat.color = newColor;
+  saveData();
+  rebuildExpCatSelect();
+  renderCategories();
+}
+
+function renderCategories() {
+  var tbody = document.getElementById('catTable');
+  if (!tbody) return;
+  var html = '';
+  // Default cats (read-only)
+  DEFAULT_CATS.forEach(function(name){
+    var color = CAT_COLORS[name]||'#8b90a0';
+    html += '<tr>'
+      +'<td>'+name+'</td>'
+      +'<td><div style="width:16px;height:16px;border-radius:4px;background:'+color+';display:inline-block"></div></td>'
+      +'<td><span class="badge" style="background:'+color+'22;color:'+color+'">'+name+'</span></td>'
+      +'<td><span style="font-size:11px;color:var(--text2)">Built-in</span></td>'
+      +'</tr>';
+  });
+  // Custom cats
+  C.forEach(function(c){
+    var inUse = X.filter(function(x){return x.category===c.name;}).length;
+    html += '<tr id="catrow_'+c.id+'">'
+      +'<td>'+c.name+'</td>'
+      +'<td><div style="width:16px;height:16px;border-radius:4px;background:'+c.color+';display:inline-block"></div></td>'
+      +'<td><span class="badge" style="background:'+c.color+'22;color:'+c.color+'">'+c.name+'</span></td>'
+      +'<td style="display:flex;gap:6px;align-items:center">'
+      +'<span style="font-size:11px;color:var(--text2);margin-right:6px">'+inUse+' uses</span>'
+      +'<button class="btn btn-ghost btn-sm" onclick="editCategoryInline(\''+c.id+'\')">Edit</button>'
+      +'<button class="btn btn-danger btn-sm" onclick="removeCategory(\''+c.id+'\')">Remove</button>'
+      +'</td>'
+      +'</tr>';
+  });
+  tbody.innerHTML = html || '<tr><td colspan="4" style="text-align:center;color:var(--text2);padding:20px">No custom categories</td></tr>';
+}
+
+// ===== JOB POSITIONS CRUD =====
+function addJobPos() {
+  var title = document.getElementById('jobTitle').value.trim();
+  if (!title) {alert('Job title required'); return;}
+  if (P.some(function(p){return p.title.toLowerCase()===title.toLowerCase();})) {
+    alert('Position already exists'); return;
+  }
+  P.push({id:makeid(), title:title});
+  saveData();
+  document.getElementById('jobTitle').value='';
+  rebuildJobSelect();
+  renderJobPos();
+}
+
+function removeJobPos(id) {
+  var pos = P.find(function(p){return p.id===id;});
+  if (!pos) return;
+  var inUse = E.some(function(e){return e.role===pos.title;});
+  if (inUse && !confirm('"'+pos.title+'" is assigned to employees. Remove anyway?')) return;
+  P = P.filter(function(p){return p.id!==id;});
+  saveData();
+  rebuildJobSelect();
+  renderJobPos();
+}
+
+function editJobPosInline(id) {
+  var pos = P.find(function(p){return p.id===id;});
+  if (!pos) return;
+  var row = document.getElementById('jobrow_'+id);
+  row.innerHTML = '<td><input id="jedit_'+id+'" value="'+pos.title+'" style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);width:200px"></td>'
+    +'<td style="display:flex;gap:6px">'
+    +'<button class="btn btn-green btn-sm" onclick="saveJobEdit(\''+id+'\')">Save</button>'
+    +'<button class="btn btn-ghost btn-sm" onclick="renderJobPos()">Cancel</button>'
+    +'</td>';
+}
+
+function saveJobEdit(id) {
+  var newTitle = document.getElementById('jedit_'+id).value.trim();
+  if (!newTitle) {alert('Title required'); return;}
+  var pos = P.find(function(p){return p.id===id;});
+  var oldTitle = pos.title;
+  // Update employees using old title
+  E.forEach(function(e){if(e.role===oldTitle) e.role=newTitle;});
+  pos.title = newTitle;
+  saveData();
+  rebuildJobSelect();
+  renderJobPos();
+}
+
+function renderJobPos() {
+  var tbody = document.getElementById('jobTable');
+  if (!tbody) return;
+  if (P.length===0){tbody.innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text2);padding:24px">No positions defined yet</td></tr>';return;}
+  var html = '';
+  P.forEach(function(p){
+    var count = E.filter(function(e){return e.role===p.title;}).length;
+    html += '<tr id="jobrow_'+p.id+'">'
+      +'<td><span style="font-weight:500">'+p.title+'</span></td>'
+      +'<td><span class="badge badge-blue">'+count+' employee'+(count!==1?'s':'')+'</span></td>'
+      +'<td style="display:flex;gap:6px">'
+      +'<button class="btn btn-ghost btn-sm" onclick="editJobPosInline(\''+p.id+'\')">Edit</button>'
+      +'<button class="btn btn-danger btn-sm" onclick="removeJobPos(\''+p.id+'\')">Remove</button>'
+      +'</td>'
+      +'</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+// ===== EXPORT / IMPORT =====
+function exportData() {
+  var data = {E:E, A:A, J:J, S:S, X:X, C:C, P:P, R:R, exportedAt: new Date().toISOString()};
+  var blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  var ts = new Date().toISOString().replace(/[:.]/g,'-').substring(0,19);
+  a.href = url;
+  a.download = 'insure-media-backup-' + ts + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData() {
+  document.getElementById('importFile').click();
+}
+
+function handleImport(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      var data = JSON.parse(e.target.result);
+      if (!confirm('Import will replace all current data. Continue?')) return;
+      if (data.E) E = data.E;
+      if (data.A) A = data.A;
+      if (data.J) J = data.J;
+      if (data.S) S = data.S;
+      if (data.X) X = data.X;
+      if (data.C) C = data.C;
+      if (data.P) P = data.P;
+      if (data.R) R = data.R;
+      saveData();
+      populateSelects();
+      rebuildExpCatSelect();
+      rebuildJobSelect();
+      renderTab(currentTab);
+      alert('Data imported successfully.');
+    } catch(err) {
+      alert('Invalid backup file.');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// Listen for month changes in salary
+document.getElementById('salMonth').addEventListener('change', function(){renderSalary();});
+</script>
+
+<!-- Chart.js CDN — placed at end of body after all scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ── HCS Preload: seed localStorage (runs once per version) ───
+(function(){
+  if (localStorage.getItem('crm2_hcs_v2')) return; // already loaded
+  // clear any stale flags from older deploys
+  localStorage.removeItem('crm2_hcs_v1');
+  localStorage.setItem('crm2_hcs_v2','1');
+  var seed = {"E":[{"id":"sx8tw3d9h","name":"Jerry","role":"Sales Agent","salary":50000,"commission":0},{"id":"n00t3mbcp","name":"Nayab Malik","role":"Sales Agent","salary":50000,"commission":0},{"id":"91bddwor4","name":"Shoaib Akhtar","role":"Sales Agent","salary":50000,"commission":0},{"id":"xtklmjw5f","name":"Daud Mansha","role":"Sales Agent","salary":50000,"commission":0},{"id":"vupa0hyy1","name":"Amous John","role":"Sales Agent","salary":50000,"commission":0}],"A":[{"id":"fc47pqocs","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-10","status":"On time","loggedBy":"admin"},{"id":"3g7e1lss1","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-11","status":"On time","loggedBy":"admin"},{"id":"n52bourl9","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-12","status":"On time","loggedBy":"admin"},{"id":"c0letreu4","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-13","status":"On time","loggedBy":"admin"},{"id":"kaikfrqao","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-16","status":"On time","loggedBy":"admin"},{"id":"78g1h0zqm","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-17","status":"On time","loggedBy":"admin"},{"id":"jyojceu4j","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-18","status":"On time","loggedBy":"admin"},{"id":"r3y65bwpo","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"p4j9rcmif","empId":"sx8tw3d9h","empName":"Jerry","date":"2026-03-20","status":"Late","loggedBy":"admin"},{"id":"si9y2xkby","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-10","status":"On time","loggedBy":"admin"},{"id":"5gmmy0xdh","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-11","status":"On time","loggedBy":"admin"},{"id":"x4ub0vtju","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-12","status":"Late","loggedBy":"admin"},{"id":"30tlnd5b7","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-13","status":"On time","loggedBy":"admin"},{"id":"0tpkgpvdi","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-16","status":"On time","loggedBy":"admin"},{"id":"76b8u19jx","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-17","status":"On time","loggedBy":"admin"},{"id":"cwkm63ie6","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-18","status":"On time","loggedBy":"admin"},{"id":"9i8ee8oj4","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"khtydknmt","empId":"n00t3mbcp","empName":"Nayab Malik","date":"2026-03-20","status":"Late","loggedBy":"admin"},{"id":"0ky4crkgd","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-10","status":"On time","loggedBy":"admin"},{"id":"r1x0d63dk","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-11","status":"On time","loggedBy":"admin"},{"id":"zuzztk82j","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-12","status":"On time","loggedBy":"admin"},{"id":"2q145b68j","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-13","status":"Absent","loggedBy":"admin"},{"id":"pmkv2phz9","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-16","status":"On time","loggedBy":"admin"},{"id":"nasnr2b03","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-17","status":"On time","loggedBy":"admin"},{"id":"9mot5j7ix","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-18","status":"Late","loggedBy":"admin"},{"id":"tef92jjti","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"dn6c2rmn0","empId":"91bddwor4","empName":"Shoaib Akhtar","date":"2026-03-20","status":"Late","loggedBy":"admin"},{"id":"dk6gfibqw","empId":"xtklmjw5f","empName":"Daud Mansha","date":"2026-03-18","status":"On time","loggedBy":"admin"},{"id":"77p4r122k","empId":"xtklmjw5f","empName":"Daud Mansha","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"uiw5x01fq","empId":"xtklmjw5f","empName":"Daud Mansha","date":"2026-03-20","status":"On time","loggedBy":"admin"},{"id":"q68a16n4a","empId":"vupa0hyy1","empName":"Amous John","date":"2026-03-18","status":"On time","loggedBy":"admin"},{"id":"a7vvahla6","empId":"vupa0hyy1","empName":"Amous John","date":"2026-03-19","status":"Late","loggedBy":"admin"},{"id":"bqbpr6iup","empId":"vupa0hyy1","empName":"Amous John","date":"2026-03-20","status":"Late","loggedBy":"admin"}],"J":[],"S":[],"X":[],"C":[],"P":[{"id":"b67wtnrfl","title":"Sales Agent"}],"exportedAt":"2026-03-20T17:15:18.829062Z"};
+  localStorage.setItem('crm2_emp',  JSON.stringify(seed.E));
+  localStorage.setItem('crm2_att',  JSON.stringify(seed.A));
+  localStorage.setItem('crm2_adj',  JSON.stringify(seed.J));
+  localStorage.setItem('crm2_sls',  JSON.stringify(seed.S));
+  localStorage.setItem('crm2_exp',  JSON.stringify(seed.X));
+  localStorage.setItem('crm2_cats', JSON.stringify(seed.C));
+  localStorage.setItem('crm2_jobs', JSON.stringify(seed.P));
+})();
+</script>
+</body>
+</html>
