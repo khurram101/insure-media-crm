@@ -539,14 +539,21 @@ select option{background:#141929}
 .sidebar{top:112px;height:calc(100vh - 112px)}
 
 /* ─── EXPENSE SUB-TABS ───────────────────────────────────── */
-.exp-subtabs{display:flex;gap:4px;margin-bottom:18px;border-bottom:1px solid var(--border);padding-bottom:0}
+.exp-subtabs{display:flex;gap:6px;margin-bottom:20px;padding-bottom:0}
 .exp-stab{
-  padding:8px 18px;font-size:13px;font-weight:500;color:var(--text2);
-  background:none;border:none;border-bottom:2px solid transparent;
-  cursor:pointer;transition:all .15s;margin-bottom:-1px;border-radius:0
+  padding:8px 20px;font-size:13px;font-weight:500;color:var(--text2);
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .18s;
 }
-.exp-stab:hover{color:var(--text)}
-.exp-stab.active{color:var(--ac);border-bottom-color:var(--ac);font-weight:600}
+.exp-stab:hover{color:var(--text);background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18)}
+.exp-stab.active{
+  color:var(--ac);font-weight:600;
+  background:rgba(var(--ac-rgb),.10);
+  border-color:rgba(var(--ac-rgb),.40);
+  box-shadow:0 0 12px rgba(var(--ac-rgb),.15);
+}
 
 /* ─── RECURRING EXPENSES ─────────────────────────────────── */
 .rec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
@@ -605,6 +612,9 @@ html[data-mode="light"] .btn-ghost{background:rgba(0,0,0,.05);border-color:rgba(
 html[data-mode="light"] .btn-ghost:hover{background:rgba(0,0,0,.09)}
 html[data-mode="light"] .user-pill{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.10);color:#333}
 html[data-mode="light"] .fpill{color:#5a5a6e;border-color:rgba(0,0,0,.12)}
+html[data-mode="light"] .exp-stab{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.15);color:#444}
+html[data-mode="light"] .exp-stab:hover{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.22);color:#111}
+html[data-mode="light"] .exp-stab.active{background:rgba(var(--ac-rgb),.08);border-color:rgba(var(--ac-rgb),.45);color:var(--ac)}
 html[data-mode="light"] .fpill:hover{color:#111;background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.16)}
 html[data-mode="light"] .fb-date-field{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12)}
 html[data-mode="light"] .fb-date-field input[type=date]{color-scheme:light}
