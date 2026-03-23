@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insure Media Group</title>
+<title>Insure Media — Insurance Marketing Solutions</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#090b12;--bg2:#0f1420;--bg3:#141929;--bg4:#1a2035;
-  --ac:#4f8ef7;--ac2:#3a7ef0;--green:#2ecc8a;--red:#e05454;--amber:#f0a030;--purple:#9b7ff0;
-  --text:#eef0f8;--text2:#7a82a0;--text3:#4a5270;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.10);
+  --bg:#0a0808;--bg2:#110b0b;--bg3:#181010;--bg4:#1f1414;
+  --ac:#C8102E;--ac2:#a00e25;--green:#2ecc8a;--red:#e05454;--amber:#f0a030;--purple:#8a0d1e;
+  --teal:#C8102E;
+  --text:#eef0f8;--text2:#8a7e7e;--text3:#574848;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.10);
   --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
   --shadow-sm:0 2px 8px rgba(0,0,0,.4);
   --shadow-md:0 8px 32px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.3);
   --shadow-lg:0 24px 64px rgba(0,0,0,.6),0 8px 24px rgba(0,0,0,.4);
-  --glow-ac:0 0 24px rgba(79,142,247,.18);
-  --glass:rgba(15,20,32,.7);
-  --glass2:rgba(20,25,41,.6);
+  --glow-ac:0 0 24px rgba(200,16,46,.22);
+  --glass:rgba(18,10,10,.72);
+  --glass2:rgba(24,14,14,.65);
   --radius:14px;--radius-sm:9px;--radius-xs:6px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -34,9 +35,9 @@ body::before{
   content:'';
   position:fixed;inset:0;
   background:
-    radial-gradient(ellipse 70% 55% at 15% -5%,rgba(79,142,247,.10) 0%,transparent 55%),
-    radial-gradient(ellipse 55% 45% at 88% 95%,rgba(155,127,240,.08) 0%,transparent 55%),
-    radial-gradient(ellipse 40% 30% at 60% 40%,rgba(46,204,138,.04) 0%,transparent 50%);
+    radial-gradient(ellipse 70% 55% at 15% -5%,rgba(200,16,46,.12) 0%,transparent 55%),
+    radial-gradient(ellipse 55% 45% at 88% 95%,rgba(138,13,30,.09) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 30% at 60% 40%,rgba(200,16,46,.05) 0%,transparent 50%);
   pointer-events:none;z-index:0;
 }
 input,select,textarea,button{font-family:var(--font);font-size:14px;color:inherit}
@@ -54,7 +55,7 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 }
 #login::after{
   content:'';position:absolute;inset:0;
-  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234f8ef7' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8102E' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   pointer-events:none;opacity:.4;
 }
 .login-box{
@@ -68,19 +69,19 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
   position:relative;z-index:1;
 }
 .login-logo{
-  width:48px;height:48px;border-radius:14px;
-  background:linear-gradient(135deg,var(--ac),var(--purple));
+  width:64px;height:64px;border-radius:16px;
+  background:linear-gradient(145deg,#1a0a0a,#2a0d0d);
   display:flex;align-items:center;justify-content:center;
   margin:0 auto 20px;
-  box-shadow:0 8px 24px rgba(79,142,247,.35);
-  font-size:22px;font-weight:800;color:#fff;letter-spacing:-1px;
+  box-shadow:0 8px 24px rgba(200,16,46,.40),inset 0 1px 0 rgba(255,255,255,.07);
+  border:1px solid rgba(200,16,46,.25);
 }
 .login-brand{
-  font-size:26px;font-weight:700;
-  background:linear-gradient(135deg,#fff 30%,rgba(255,255,255,.55));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-size:26px;font-weight:800;
+  color:#fff;
   margin-bottom:6px;text-align:center;letter-spacing:-.5px;
 }
+.login-brand span:first-child{color:#C8102E}
 .login-sub{color:var(--text2);text-align:center;margin-bottom:36px;font-size:13.5px}
 .field{margin-bottom:18px}
 .field label{
@@ -97,8 +98,8 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 }
 .field input::placeholder{color:var(--text3)}
 .field input:focus{
-  border-color:rgba(79,142,247,.5);
-  box-shadow:0 0 0 3px rgba(79,142,247,.12);
+  border-color:rgba(200,16,46,.5);
+  box-shadow:0 0 0 3px rgba(200,16,46,.12);
 }
 .login-error{color:var(--red);font-size:13px;margin-top:10px;text-align:center;min-height:20px;font-weight:500}
 
@@ -115,9 +116,9 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 .btn-primary{
   background:linear-gradient(135deg,var(--ac),var(--ac2));
   color:#fff;
-  box-shadow:0 4px 16px rgba(79,142,247,.30),inset 0 1px 0 rgba(255,255,255,.15);
+  box-shadow:0 4px 16px rgba(200,16,46,.35),inset 0 1px 0 rgba(255,255,255,.15);
 }
-.btn-primary:hover{box-shadow:0 6px 20px rgba(79,142,247,.40),inset 0 1px 0 rgba(255,255,255,.15)}
+.btn-primary:hover{box-shadow:0 6px 20px rgba(200,16,46,.48),inset 0 1px 0 rgba(255,255,255,.15)}
 .btn-sm{padding:6px 13px;font-size:12.5px;border-radius:var(--radius-xs)}
 .btn-danger{
   background:linear-gradient(135deg,#e05454,#c43a3a);
@@ -148,20 +149,21 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   border-bottom:1px solid var(--border);
   height:58px;display:flex;align-items:center;padding:0 24px;gap:10px;
-  box-shadow:0 1px 0 rgba(79,142,247,.07);
+  box-shadow:0 1px 0 rgba(200,16,46,.08);
 }
 .brand{
   font-weight:800;font-size:17px;letter-spacing:-.4px;
-  background:linear-gradient(135deg,#fff 40%,rgba(255,255,255,.5));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  color:#fff;
   margin-right:auto;display:flex;align-items:center;gap:10px;
 }
+.brand .brand-red{color:#C8102E}
 .brand-icon{
-  width:28px;height:28px;border-radius:8px;
-  background:linear-gradient(135deg,var(--ac),var(--purple));
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(145deg,#1a0808,#2d0c0c);
   display:inline-flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:800;color:#fff;flex-shrink:0;
-  box-shadow:0 2px 8px rgba(79,142,247,.3);
+  flex-shrink:0;
+  box-shadow:0 2px 8px rgba(200,16,46,.35),inset 0 1px 0 rgba(255,255,255,.06);
+  border:1px solid rgba(200,16,46,.22);
 }
 .saved-indicator{
   display:flex;align-items:center;gap:5px;
@@ -182,8 +184,8 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
   font-size:10px;padding:2px 8px;border-radius:20px;
   font-weight:700;text-transform:uppercase;letter-spacing:.5px;
 }
-.role-admin{background:rgba(79,142,247,.18);color:var(--ac);border:1px solid rgba(79,142,247,.2)}
-.role-manager{background:rgba(155,127,240,.18);color:var(--purple);border:1px solid rgba(155,127,240,.2)}
+.role-admin{background:rgba(200,16,46,.18);color:var(--ac);border:1px solid rgba(200,16,46,.28)}
+.role-manager{background:rgba(138,13,30,.18);color:#e06070;border:1px solid rgba(138,13,30,.28)}
 
 /* Layout */
 .layout{display:flex;flex:1;min-height:calc(100vh - 58px)}
@@ -211,7 +213,7 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 .nav-item:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .nav-item.active{
   color:#fff;
-  background:linear-gradient(135deg,rgba(79,142,247,.18),rgba(79,142,247,.08));
+  background:linear-gradient(135deg,rgba(200,16,46,.20),rgba(200,16,46,.08));
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 8px rgba(0,0,0,.2);
 }
 .nav-item.active::before{
@@ -219,7 +221,7 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
   position:absolute;left:0;top:20%;bottom:20%;
   width:3px;border-radius:0 3px 3px 0;
   background:linear-gradient(to bottom,var(--ac),var(--purple));
-  box-shadow:0 0 8px rgba(79,142,247,.5);
+  box-shadow:0 0 8px rgba(200,16,46,.55);
 }
 .nav-item svg{flex-shrink:0;opacity:.55;transition:opacity .18s}
 .nav-item:hover svg{opacity:.8}
@@ -248,8 +250,8 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 .kpi-card::before{
   content:'';
   position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--ac),var(--purple));
-  opacity:.7;border-radius:var(--radius) var(--radius) 0 0;
+  background:linear-gradient(90deg,var(--ac),#ff4060);
+  opacity:.8;border-radius:var(--radius) var(--radius) 0 0;
 }
 .kpi-label{font-size:11.5px;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;font-weight:600;margin-bottom:10px}
 .kpi-value{font-size:28px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;line-height:1}
@@ -325,9 +327,9 @@ tbody tr:hover td{background:rgba(255,255,255,.032)}
 .form-field input::placeholder,.form-field textarea::placeholder{color:var(--text3)}
 .form-field input:focus,
 .form-field select:focus{
-  border-color:rgba(79,142,247,.5);
-  box-shadow:0 0 0 3px rgba(79,142,247,.10),inset 0 1px 3px rgba(0,0,0,.1);
-  background:rgba(79,142,247,.04);
+  border-color:rgba(200,16,46,.5);
+  box-shadow:0 0 0 3px rgba(200,16,46,.10),inset 0 1px 3px rgba(0,0,0,.1);
+  background:rgba(200,16,46,.04);
 }
 select option{background:#141929}
 
@@ -340,7 +342,7 @@ select option{background:#141929}
   padding:8px 14px;color:var(--text);outline:none;
   transition:border-color .2s,box-shadow .2s;
 }
-.filter-row input:focus{border-color:rgba(79,142,247,.5);box-shadow:0 0 0 3px rgba(79,142,247,.10)}
+.filter-row input:focus{border-color:rgba(200,16,46,.5);box-shadow:0 0 0 3px rgba(200,16,46,.10)}
 
 /* ─── BADGES ─────────────────────────────────────────── */
 .badge{
@@ -352,8 +354,8 @@ select option{background:#141929}
 .badge-green{background:rgba(46,204,138,.10);color:var(--green);border-color:rgba(46,204,138,.2)}
 .badge-red{background:rgba(224,84,84,.10);color:var(--red);border-color:rgba(224,84,84,.2)}
 .badge-amber{background:rgba(240,160,48,.10);color:var(--amber);border-color:rgba(240,160,48,.2)}
-.badge-blue{background:rgba(79,142,247,.10);color:var(--ac);border-color:rgba(79,142,247,.2)}
-.badge-purple{background:rgba(155,127,240,.10);color:var(--purple);border-color:rgba(155,127,240,.2)}
+.badge-blue{background:rgba(200,16,46,.10);color:var(--ac);border-color:rgba(200,16,46,.25)}
+.badge-purple{background:rgba(138,13,30,.12);color:#e06070;border-color:rgba(138,13,30,.25)}
 
 /* ─── AVATAR ─────────────────────────────────────────── */
 .avatar{
@@ -410,7 +412,7 @@ select option{background:#141929}
   font-size:13px;font-weight:500;
   transition:border-color .15s;
 }
-.att-select:focus{border-color:rgba(79,142,247,.5)}
+.att-select:focus{border-color:rgba(200,16,46,.5)}
 
 /* ─── LOCKED MSG ─────────────────────────────────────── */
 .locked-msg{
@@ -448,7 +450,7 @@ select option{background:#141929}
   transition:all .15s;white-space:nowrap;line-height:1.4;
 }
 .fpill:hover{color:var(--text);background:rgba(255,255,255,.06);border-color:var(--border2)}
-.fpill.active{background:rgba(79,142,247,.15);color:var(--ac);border-color:rgba(79,142,247,.30);font-weight:600}
+.fpill.active{background:rgba(200,16,46,.16);color:var(--ac);border-color:rgba(200,16,46,.35);font-weight:600}
 /* divider */
 .fb-sep{width:1px;height:22px;background:var(--border2);margin:0 14px;flex-shrink:0;align-self:center}
 /* right side: always-visible date range */
@@ -464,9 +466,9 @@ select option{background:#141929}
   cursor:pointer;
 }
 .fb-date-field:focus-within{
-  border-color:rgba(79,142,247,.5);
-  box-shadow:0 0 0 3px rgba(79,142,247,.10);
-  background:rgba(79,142,247,.05);
+  border-color:rgba(200,16,46,.5);
+  box-shadow:0 0 0 3px rgba(200,16,46,.10);
+  background:rgba(200,16,46,.05);
 }
 .fb-date-field-lbl{
   font-size:10.5px;font-weight:700;text-transform:uppercase;
@@ -489,7 +491,7 @@ select option{background:#141929}
 /* active range badge */
 .fb-active-badge{
   display:flex;align-items:center;gap:5px;
-  background:rgba(79,142,247,.10);border:1px solid rgba(79,142,247,.20);
+  background:rgba(200,16,46,.10);border:1px solid rgba(200,16,46,.25);
   border-radius:8px;padding:4px 11px;margin-left:6px;
   font-size:12px;font-family:var(--mono);color:var(--ac);white-space:nowrap;
 }
@@ -547,9 +549,17 @@ select option{background:#141929}
 <!-- LOGIN -->
 <div id="login">
   <div class="login-box">
-    <div class="login-logo">IM</div>
-    <div class="login-brand">Insure Media Group</div>
-    <div class="login-sub">Sign in to your workspace</div>
+    <div class="login-logo">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#1a0808"/>
+        <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#C8102E"/>
+        <circle cx="19" cy="24" r="2" fill="white"/>
+        <path d="M14.5 20c1.2-1.2 2.8-1.9 4.5-1.9s3.3.7 4.5 1.9" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <path d="M11.5 17c2-2 4.7-3.2 7.5-3.2s5.5 1.2 7.5 3.2" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="login-brand"><span>Insure</span> Media</div>
+    <div class="login-sub">Insurance Marketing Solutions</div>
     <div class="field">
       <label>Username</label>
       <input type="text" id="u" placeholder="Enter username" onkeydown="if(event.key==='Enter')doLogin()">
@@ -565,7 +575,7 @@ select option{background:#141929}
 
 <!-- Loading Overlay -->
 <div id="loadingOverlay" style="display:none;position:fixed;inset:0;background:rgba(9,11,18,.88);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:14px">
-  <div style="width:36px;height:36px;border:3px solid rgba(79,142,247,.2);border-top-color:#4f8ef7;border-radius:50%;animation:spin .7s linear infinite"></div>
+  <div style="width:36px;height:36px;border:3px solid rgba(200,16,46,.2);border-top-color:#C8102E;border-radius:50%;animation:spin .7s linear infinite"></div>
   <div style="color:#8b90a0;font-size:13px;letter-spacing:.5px">Loading data…</div>
 </div>
 
@@ -573,7 +583,18 @@ select option{background:#141929}
 <div id="app">
   <!-- Topbar -->
   <div class="topbar">
-    <div class="brand"><div class="brand-icon">IM</div>Insure Media Group</div>
+    <div class="brand">
+      <div class="brand-icon">
+        <svg width="18" height="18" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#1a0808"/>
+          <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#C8102E"/>
+          <circle cx="19" cy="24" r="2" fill="white"/>
+          <path d="M14.5 20c1.2-1.2 2.8-1.9 4.5-1.9s3.3.7 4.5 1.9" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M11.5 17c2-2 4.7-3.2 7.5-3.2s5.5 1.2 7.5 3.2" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <span class="brand-red">Insure</span><span style="margin-left:3px">Media</span>
+    </div>
     <span class="saved-indicator" id="savedInd">Saved</span>
     <button class="btn btn-ghost btn-sm" onclick="exportData()">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
@@ -1014,8 +1035,8 @@ var SALES_TIERS = [
   {min:0,   bonus:0}
 ];
 
-var AVATAR_COLORS = ['#4f8ef7','#2ecc8a','#9b7ff0','#f0a030','#e05454','#20c9b0','#f070b0','#70a0f0'];
-var CAT_COLORS = {'Rent':'#4f8ef7','Utilities':'#2ecc8a','Supplies':'#f0a030','Internet':'#9b7ff0','Equipment':'#e05454','Other':'#8b90a0'};
+var AVATAR_COLORS = ['#C8102E','#2ecc8a','#e07040','#f0a030','#e05454','#20c9b0','#f070b0','#70a0f0'];
+var CAT_COLORS = {'Rent':'#C8102E','Utilities':'#2ecc8a','Supplies':'#f0a030','Internet':'#e07040','Equipment':'#e05454','Other':'#8b90a0'};
 var CUSTOM_CAT_PALETTE = ['#20c9b0','#f070b0','#c0a060','#7090e0','#e08040','#60c0d0','#b060e0','#80d060'];
 var DEFAULT_CATS = ['Rent','Utilities','Supplies','Internet','Equipment','Other'];
 
@@ -1479,8 +1500,8 @@ function renderDashCharts() {
     type:'bar',
     data:{labels:labels,datasets:[{
       label:'Sales Count',data:data,
-      backgroundColor:'rgba(79,142,247,0.55)',
-      hoverBackgroundColor:'rgba(79,142,247,0.85)',
+      backgroundColor:'rgba(200,16,46,0.60)',
+      hoverBackgroundColor:'rgba(200,16,46,0.88)',
       borderRadius:8,borderSkipped:false
     }]},
     options:{
