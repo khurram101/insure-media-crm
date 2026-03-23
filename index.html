@@ -544,6 +544,48 @@ select option{background:#141929}
   .fb-active-badge{display:none}
 }
 
+/* ─── LIGHT / DARK MODE ─────────────────────────────── */
+html[data-mode="light"] body::before{
+  background:
+    radial-gradient(ellipse 70% 55% at 15% -5%,rgba(var(--ac-rgb),.07) 0%,transparent 55%),
+    radial-gradient(ellipse 55% 45% at 88% 95%,rgba(var(--ac2-rgb),.04) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 30% at 60% 40%,rgba(var(--ac-rgb),.03) 0%,transparent 50%);
+}
+html[data-mode="light"] .topbar{background:rgba(255,255,255,.90)!important;border-bottom-color:rgba(0,0,0,.10);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+html[data-mode="light"] .brand{color:#111}
+html[data-mode="light"] .sidebar{background:rgba(255,255,255,.82)!important;border-right-color:rgba(0,0,0,.08)}
+html[data-mode="light"] .nav-item{color:#5a5a6e}
+html[data-mode="light"] .nav-item:hover{background:rgba(0,0,0,.04);color:#111}
+html[data-mode="light"] .nav-item.active{background:linear-gradient(135deg,rgba(var(--ac-rgb),.12),rgba(var(--ac-rgb),.05));box-shadow:none;color:#111}
+html[data-mode="light"] .kpi-card{background:rgba(255,255,255,.96);border-color:rgba(0,0,0,.08)}
+html[data-mode="light"] .card{background:rgba(255,255,255,.96);border-color:rgba(0,0,0,.08)}
+html[data-mode="light"] .card-header{background:rgba(0,0,0,.02)}
+html[data-mode="light"] .chart-wrap{background:rgba(255,255,255,.96);border-color:rgba(0,0,0,.08)}
+html[data-mode="light"] thead{background:rgba(0,0,0,.025)}
+html[data-mode="light"] td{border-bottom-color:rgba(0,0,0,.06)}
+html[data-mode="light"] tr:hover td{background:rgba(0,0,0,.015)}
+html[data-mode="light"] .btn-ghost{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12);color:#333}
+html[data-mode="light"] .btn-ghost:hover{background:rgba(0,0,0,.09)}
+html[data-mode="light"] .user-pill{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.10);color:#333}
+html[data-mode="light"] .fpill{color:#5a5a6e;border-color:rgba(0,0,0,.12)}
+html[data-mode="light"] .fpill:hover{color:#111;background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.16)}
+html[data-mode="light"] .fb-date-field{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12)}
+html[data-mode="light"] .fb-date-field input[type=date]{color-scheme:light}
+html[data-mode="light"] .fb-date-field input[type=date]::-webkit-calendar-picker-indicator{filter:none;opacity:.5}
+html[data-mode="light"] .field input,html[data-mode="light"] input[type="text"]:not([style]),html[data-mode="light"] input[type="number"]:not([style]),html[data-mode="light"] input[type="password"],html[data-mode="light"] select{background:rgba(0,0,0,.04)!important;border-color:rgba(0,0,0,.12)!important;color:#111!important}
+html[data-mode="light"] .login-box{background:rgba(255,255,255,.96);border-color:rgba(0,0,0,.10);box-shadow:0 24px 64px rgba(0,0,0,.12),0 8px 24px rgba(0,0,0,.06)}
+html[data-mode="light"] #login{background:#f0f0f5}
+html[data-mode="light"] #loadingOverlay{background:rgba(240,240,245,.95)!important}
+html[data-mode="light"] .rec-card{background:rgba(255,255,255,.85);border-color:rgba(0,0,0,.10)}
+html[data-mode="light"] .rec-card:hover{border-color:rgba(0,0,0,.20)}
+html[data-mode="light"] #themePicker{background:#fff!important;box-shadow:0 8px 32px rgba(0,0,0,.14),0 2px 8px rgba(0,0,0,.07)!important}
+html[data-mode="light"] .theme-swatch:hover{background:rgba(0,0,0,.05)}
+html[data-mode="light"] .theme-swatch.active{background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.20)}
+html[data-mode="light"] .filter-bar{background:rgba(255,255,255,.88)!important;border-bottom-color:rgba(0,0,0,.08)!important}
+html[data-mode="light"] .nav-section{color:#aaa}
+html[data-mode="light"] ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15)}
+html[data-mode="light"] ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25)}
+
 /* ─── THEME PICKER ───────────────────────────────────── */
 .theme-picker-wrap{position:relative}
 #themePicker{
@@ -580,8 +622,8 @@ select option{background:#141929}
   <div class="login-box">
     <div class="login-logo">
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" style="fill:var(--bg3)"/>
-        <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" style="fill:var(--ac)"/>
+        <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#1a1a1a"/>
+        <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#C8102E"/>
         <circle cx="19" cy="24" r="2" fill="white"/>
         <path d="M14.5 20c1.2-1.2 2.8-1.9 4.5-1.9s3.3.7 4.5 1.9" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
         <path d="M11.5 17c2-2 4.7-3.2 7.5-3.2s5.5 1.2 7.5 3.2" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
@@ -615,8 +657,8 @@ select option{background:#141929}
     <div class="brand">
       <div class="brand-icon">
         <svg width="18" height="18" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" style="fill:var(--bg3)"/>
-          <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" style="fill:var(--ac)"/>
+          <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#1a1a1a"/>
+          <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#C8102E"/>
           <circle cx="19" cy="24" r="2" fill="white"/>
           <path d="M14.5 20c1.2-1.2 2.8-1.9 4.5-1.9s3.3.7 4.5 1.9" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
           <path d="M11.5 17c2-2 4.7-3.2 7.5-3.2s5.5 1.2 7.5 3.2" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
@@ -633,6 +675,7 @@ select option{background:#141929}
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
       Import
     </button>
+    <button id="modeToggleBtn" class="btn btn-ghost btn-sm" onclick="toggleMode()" style="padding:6px 12px;font-size:12.5px"></button>
     <div class="theme-picker-wrap">
       <button class="btn btn-sm" onclick="toggleThemePicker()" title="Change color theme" style="background:rgba(var(--ac-rgb),.15);border:1px solid rgba(var(--ac-rgb),.30);color:var(--ac)">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.1-.7-.3-1-.2-.3-.3-.6-.3-1 0-.8.7-1.5 1.5-1.5H16c2.8 0 5-2.2 5-5 0-4.4-4-8-9-8z"/><circle cx="6.5" cy="11.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="9.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="14.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="17.5" cy="11.5" r="1.5" fill="currentColor" stroke="none"/></svg>
@@ -1108,6 +1151,45 @@ var THEMES = {
 };
 
 var currentTheme = localStorage.getItem('im_theme') || 'crimson';
+var currentMode  = localStorage.getItem('im_mode')  || 'dark';
+
+var LIGHT_VARS = {
+  '--bg':'#f0f0f5','--bg2':'#ffffff','--bg3':'#e6e6ec','--bg4':'#dcdce4',
+  '--text':'#111118','--text2':'#5a5a6e','--text3':'#9090a8',
+  '--border':'rgba(0,0,0,.07)','--border2':'rgba(0,0,0,.12)',
+  '--glass':'rgba(255,255,255,.90)','--glass2':'rgba(240,240,245,.92)',
+  '--shadow-sm':'0 2px 8px rgba(0,0,0,.08)',
+  '--shadow-md':'0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06)',
+  '--shadow-lg':'0 24px 64px rgba(0,0,0,.15),0 8px 24px rgba(0,0,0,.08)'
+};
+
+function applyMode(mode) {
+  currentMode = mode;
+  localStorage.setItem('im_mode', mode);
+  document.documentElement.setAttribute('data-mode', mode);
+  var root = document.documentElement;
+  if (mode === 'light') {
+    Object.keys(LIGHT_VARS).forEach(function(k){ root.style.setProperty(k, LIGHT_VARS[k]); });
+  } else {
+    Object.keys(LIGHT_VARS).forEach(function(k){ root.style.removeProperty(k); });
+    // Re-apply theme dark bg vars
+    var t = THEMES[currentTheme];
+    if (t) Object.keys(t).forEach(function(k){ if(k.startsWith('--')) root.style.setProperty(k, t[k]); });
+  }
+  updateModeBtn();
+}
+
+function toggleMode() { applyMode(currentMode === 'dark' ? 'light' : 'dark'); }
+
+function updateModeBtn() {
+  var btn = document.getElementById('modeToggleBtn');
+  if (!btn) return;
+  var dark = currentMode === 'dark';
+  btn.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  btn.innerHTML = dark
+    ? '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>&nbsp;Light'
+    : '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>&nbsp;Dark';
+}
 
 function applyTheme(name) {
   var t = THEMES[name];
@@ -1118,6 +1200,10 @@ function applyTheme(name) {
   Object.keys(t).forEach(function(k) {
     if (k.startsWith('--')) root.style.setProperty(k, t[k]);
   });
+  // If light mode, re-apply light vars (theme may have overwritten bg/text)
+  if (currentMode === 'light') {
+    Object.keys(LIGHT_VARS).forEach(function(k){ root.style.setProperty(k, LIGHT_VARS[k]); });
+  }
   renderThemeSwatches();
   var picker = document.getElementById('themePicker');
   if (picker) picker.style.display = 'none';
@@ -1153,8 +1239,10 @@ document.addEventListener('click', function(e) {
   if (picker && wrap && !wrap.contains(e.target)) picker.style.display = 'none';
 });
 
-// Apply saved theme immediately
+// Apply saved theme + mode immediately
 applyTheme(currentTheme);
+applyMode(currentMode);
+updateModeBtn();
 
 // ===== CONSTANTS =====
 
