@@ -874,6 +874,7 @@ select option{background:#141929}
           <div class="exp-subtabs">
             <button class="exp-stab active" id="est-monthly" onclick="switchExpTab('monthly')">Fixed Monthly</button>
             <button class="exp-stab"        id="est-daily"   onclick="switchExpTab('daily')">Daily Expenses</button>
+            <button class="exp-stab"        id="est-all"     onclick="switchExpTab('all')">All Expenses</button>
           </div>
 
           <!-- FIXED MONTHLY PANEL -->
@@ -966,6 +967,28 @@ select option{background:#141929}
               </div>
             </div>
           </div><!-- end daily panel -->
+
+          <!-- ALL EXPENSES PANEL -->
+          <div id="exp-panel-all" style="display:none">
+            <div class="kpi-grid" id="expKpiAll"></div>
+            <div class="card">
+              <div class="card-header" style="flex-wrap:wrap;gap:10px">
+                <span class="card-title">All Expenses</span>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:auto">
+                  <input type="text" id="allExpSearch" placeholder="Search category, description…" oninput="renderAllExpenses()" style="background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;color:var(--text);font-size:12.5px;outline:none;min-width:180px">
+                  <input type="date" id="allExpFrom" onchange="renderAllExpenses()" style="background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;color:var(--text);font-size:12.5px;outline:none">
+                  <span style="color:var(--text2);font-size:12px">–</span>
+                  <input type="date" id="allExpTo" onchange="renderAllExpenses()" style="background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;color:var(--text);font-size:12.5px;outline:none">
+                </div>
+              </div>
+              <div class="card-body tbl-wrap" style="padding:0">
+                <table>
+                  <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Description</th><th>Amount</th></tr></thead>
+                  <tbody id="allExpTable"></tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- end all expenses panel -->
 
         </div><!-- end expContent -->
       </div>
@@ -2093,7 +2116,7 @@ var currentExpTab = 'monthly';
 
 function switchExpTab(tab) {
   currentExpTab = tab;
-  ['monthly','daily'].forEach(function(t){
+  ['monthly','daily','all'].forEach(function(t){
     var panel = document.getElementById('exp-panel-'+t);
     var btn   = document.getElementById('est-'+t);
     if (panel) panel.style.display = t===tab ? '' : 'none';
@@ -2101,6 +2124,108 @@ function switchExpTab(tab) {
   });
   if (tab==='monthly') { rebuildRecCatSelect(); renderRecurring(); renderMonthlyKpi(); }
   if (tab==='daily')   { rebuildExpCatSelect(); rebuildExpCatFilterSelect(); renderExpenses(); renderCategories(); }
+  if (tab==='all')     { renderAllExpenses(); }
+}
+
+function renderAllExpenses() {
+  var search = ((document.getElementById('allExpSearch') || {}).value || '').toLowerCase();
+  var from   = (document.getElementById('allExpFrom')   || {}).value || '';
+  var to     = (document.getElementById('allExpTo')     || {}).value || '';
+
+  // Build unified list from X (daily + paid recurring)
+  var items = [];
+  X.forEach(function(x) {
+    var rec = x.recurringId ? R.find(function(r){ return r.id === x.recurringId; }) : null;
+    items.push({
+      date:     x.date,
+      type:     rec ? 'fixed' : 'daily',
+      category: x.category,
+      desc:     rec ? rec.name : (x.notes || ''),
+      notes:    x.notes || '',
+      amount:   Number(x.amount),
+      unpaid:   false
+    });
+  });
+
+  // Add unpaid/overdue recurring bills for this month
+  var today       = getToday();
+  var monthPrefix = today.substring(0, 7);
+  R.forEach(function(rec) {
+    var alreadyPaid = X.some(function(x){
+      return x.recurringId === rec.id && x.date.startsWith(monthPrefix);
+    });
+    if (!alreadyPaid) {
+      var dueDate = monthPrefix + '-' + String(rec.dayOfMonth).padStart(2, '0');
+      items.push({
+        date:     dueDate,
+        type:     'fixed',
+        category: rec.category,
+        desc:     rec.name,
+        notes:    rec.notes || '',
+        amount:   Number(rec.amount),
+        unpaid:   true,
+        status:   getRecurringStatus(rec)
+      });
+    }
+  });
+
+  // Date range filter
+  if (from) items = items.filter(function(i){ return i.date >= from; });
+  if (to)   items = items.filter(function(i){ return i.date <= to;   });
+
+  // Search filter
+  if (search) {
+    items = items.filter(function(i){
+      return (i.category || '').toLowerCase().indexOf(search) !== -1
+          || (i.desc     || '').toLowerCase().indexOf(search) !== -1
+          || (i.notes    || '').toLowerCase().indexOf(search) !== -1;
+    });
+  }
+
+  // KPI
+  var totalAll   = items.reduce(function(a, b){ return a + b.amount; }, 0);
+  var dailyItems = items.filter(function(i){ return i.type === 'daily'; });
+  var fixedItems = items.filter(function(i){ return i.type === 'fixed'; });
+  var totalDaily = dailyItems.reduce(function(a, b){ return a + b.amount; }, 0);
+  var totalFixed = fixedItems.reduce(function(a, b){ return a + b.amount; }, 0);
+  var kpiEl = document.getElementById('expKpiAll');
+  if (kpiEl) {
+    kpiEl.innerHTML =
+      kpiCard('Total Expenses',  pkr(totalAll),   items.length + ' entries')
+    + kpiCard('Daily Expenses',  pkr(totalDaily), dailyItems.length + ' entries')
+    + kpiCard('Fixed Monthly',   pkr(totalFixed), fixedItems.length + ' bills');
+  }
+
+  // Sort by date descending
+  items.sort(function(a, b){ return b.date.localeCompare(a.date); });
+
+  var tbody = document.getElementById('allExpTable');
+  if (!tbody) return;
+  if (items.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text2);padding:30px">No expenses found</td></tr>';
+    return;
+  }
+
+  var html = '';
+  items.forEach(function(item) {
+    var color = getCatColor(item.category);
+    var typeBadge = item.type === 'daily'
+      ? '<span style="background:rgba(32,201,176,.12);color:var(--teal);border:1px solid rgba(32,201,176,.25);border-radius:12px;padding:2px 8px;font-size:11px;white-space:nowrap">Daily</span>'
+      : '<span style="background:rgba(134,116,255,.12);color:#a78bfa;border:1px solid rgba(134,116,255,.25);border-radius:12px;padding:2px 8px;font-size:11px;white-space:nowrap">Fixed</span>';
+    var descHtml = item.desc;
+    if (item.unpaid) {
+      var sc = item.status === 'overdue' ? 'color:var(--red)' : 'color:var(--amber)';
+      descHtml += ' <span style="font-size:11px;' + sc + '">(' + item.status + ')</span>';
+    }
+    html += '<tr>'
+      + '<td>' + item.date + '</td>'
+      + '<td>' + typeBadge + '</td>'
+      + '<td><span style="background:' + color + '22;color:' + color + ';border:1px solid ' + color + '44;border-radius:12px;padding:2px 8px;font-size:11px">' + item.category + '</span></td>'
+      + '<td style="color:var(--text2)">' + descHtml + '</td>'
+      + '<td style="font-family:var(--mono)">' + pkr(item.amount) + '</td>'
+      + '</tr>';
+  });
+  tbody.innerHTML = html;
 }
 
 function toggleExpForm() {
