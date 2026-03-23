@@ -10,12 +10,13 @@
   --bg:#0a0808;--bg2:#110b0b;--bg3:#181010;--bg4:#1f1414;
   --ac:#C8102E;--ac2:#a00e25;--green:#2ecc8a;--red:#e05454;--amber:#f0a030;--purple:#8a0d1e;
   --teal:#C8102E;
+  --ac-rgb:200,16,46;--ac2-rgb:138,13,30;
   --text:#eef0f8;--text2:#8a7e7e;--text3:#574848;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.10);
   --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
   --shadow-sm:0 2px 8px rgba(0,0,0,.4);
   --shadow-md:0 8px 32px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.3);
   --shadow-lg:0 24px 64px rgba(0,0,0,.6),0 8px 24px rgba(0,0,0,.4);
-  --glow-ac:0 0 24px rgba(200,16,46,.22);
+  --glow-ac:0 0 24px rgba(var(--ac-rgb),.22);
   --glass:rgba(18,10,10,.72);
   --glass2:rgba(24,14,14,.65);
   --radius:14px;--radius-sm:9px;--radius-xs:6px;
@@ -35,9 +36,9 @@ body::before{
   content:'';
   position:fixed;inset:0;
   background:
-    radial-gradient(ellipse 70% 55% at 15% -5%,rgba(200,16,46,.12) 0%,transparent 55%),
-    radial-gradient(ellipse 55% 45% at 88% 95%,rgba(138,13,30,.09) 0%,transparent 55%),
-    radial-gradient(ellipse 40% 30% at 60% 40%,rgba(200,16,46,.05) 0%,transparent 50%);
+    radial-gradient(ellipse 70% 55% at 15% -5%,rgba(var(--ac-rgb),.12) 0%,transparent 55%),
+    radial-gradient(ellipse 55% 45% at 88% 95%,rgba(var(--ac2-rgb),.09) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 30% at 60% 40%,rgba(var(--ac-rgb),.05) 0%,transparent 50%);
   pointer-events:none;z-index:0;
 }
 input,select,textarea,button{font-family:var(--font);font-size:14px;color:inherit}
@@ -73,15 +74,15 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
   background:linear-gradient(145deg,#1a0a0a,#2a0d0d);
   display:flex;align-items:center;justify-content:center;
   margin:0 auto 20px;
-  box-shadow:0 8px 24px rgba(200,16,46,.40),inset 0 1px 0 rgba(255,255,255,.07);
-  border:1px solid rgba(200,16,46,.25);
+  box-shadow:0 8px 24px rgba(var(--ac-rgb),.40),inset 0 1px 0 rgba(255,255,255,.07);
+  border:1px solid rgba(var(--ac-rgb),.25);
 }
 .login-brand{
   font-size:26px;font-weight:800;
   color:#fff;
   margin-bottom:6px;text-align:center;letter-spacing:-.5px;
 }
-.login-brand span:first-child{color:#C8102E}
+.login-brand span:first-child{color:var(--ac)}
 .login-sub{color:var(--text2);text-align:center;margin-bottom:36px;font-size:13.5px}
 .field{margin-bottom:18px}
 .field label{
@@ -98,8 +99,8 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 }
 .field input::placeholder{color:var(--text3)}
 .field input:focus{
-  border-color:rgba(200,16,46,.5);
-  box-shadow:0 0 0 3px rgba(200,16,46,.12);
+  border-color:rgba(var(--ac-rgb),.5);
+  box-shadow:0 0 0 3px rgba(var(--ac-rgb),.12);
 }
 .login-error{color:var(--red);font-size:13px;margin-top:10px;text-align:center;min-height:20px;font-weight:500}
 
@@ -116,9 +117,9 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 .btn-primary{
   background:linear-gradient(135deg,var(--ac),var(--ac2));
   color:#fff;
-  box-shadow:0 4px 16px rgba(200,16,46,.35),inset 0 1px 0 rgba(255,255,255,.15);
+  box-shadow:0 4px 16px rgba(var(--ac-rgb),.35),inset 0 1px 0 rgba(255,255,255,.15);
 }
-.btn-primary:hover{box-shadow:0 6px 20px rgba(200,16,46,.48),inset 0 1px 0 rgba(255,255,255,.15)}
+.btn-primary:hover{box-shadow:0 6px 20px rgba(var(--ac-rgb),.48),inset 0 1px 0 rgba(255,255,255,.15)}
 .btn-sm{padding:6px 13px;font-size:12.5px;border-radius:var(--radius-xs)}
 .btn-danger{
   background:linear-gradient(135deg,#e05454,#c43a3a);
@@ -149,21 +150,21 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   border-bottom:1px solid var(--border);
   height:58px;display:flex;align-items:center;padding:0 24px;gap:10px;
-  box-shadow:0 1px 0 rgba(200,16,46,.08);
+  box-shadow:0 1px 0 rgba(var(--ac-rgb),.08);
 }
 .brand{
   font-weight:800;font-size:17px;letter-spacing:-.4px;
   color:#fff;
   margin-right:auto;display:flex;align-items:center;gap:10px;
 }
-.brand .brand-red{color:#C8102E}
+.brand .brand-red{color:var(--ac)}
 .brand-icon{
   width:30px;height:30px;border-radius:8px;
   background:linear-gradient(145deg,#1a0808,#2d0c0c);
   display:inline-flex;align-items:center;justify-content:center;
   flex-shrink:0;
-  box-shadow:0 2px 8px rgba(200,16,46,.35),inset 0 1px 0 rgba(255,255,255,.06);
-  border:1px solid rgba(200,16,46,.22);
+  box-shadow:0 2px 8px rgba(var(--ac-rgb),.35),inset 0 1px 0 rgba(255,255,255,.06);
+  border:1px solid rgba(var(--ac-rgb),.22);
 }
 .saved-indicator{
   display:flex;align-items:center;gap:5px;
@@ -184,8 +185,8 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
   font-size:10px;padding:2px 8px;border-radius:20px;
   font-weight:700;text-transform:uppercase;letter-spacing:.5px;
 }
-.role-admin{background:rgba(200,16,46,.18);color:var(--ac);border:1px solid rgba(200,16,46,.28)}
-.role-manager{background:rgba(138,13,30,.18);color:#e06070;border:1px solid rgba(138,13,30,.28)}
+.role-admin{background:rgba(var(--ac-rgb),.18);color:var(--ac);border:1px solid rgba(var(--ac-rgb),.28)}
+.role-manager{background:rgba(var(--ac2-rgb),.18);color:#e06070;border:1px solid rgba(var(--ac2-rgb),.28)}
 
 /* Layout */
 .layout{display:flex;flex:1;min-height:calc(100vh - 58px)}
@@ -213,7 +214,7 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 .nav-item:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .nav-item.active{
   color:#fff;
-  background:linear-gradient(135deg,rgba(200,16,46,.20),rgba(200,16,46,.08));
+  background:linear-gradient(135deg,rgba(var(--ac-rgb),.20),rgba(var(--ac-rgb),.08));
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 2px 8px rgba(0,0,0,.2);
 }
 .nav-item.active::before{
@@ -221,7 +222,7 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
   position:absolute;left:0;top:20%;bottom:20%;
   width:3px;border-radius:0 3px 3px 0;
   background:linear-gradient(to bottom,var(--ac),var(--purple));
-  box-shadow:0 0 8px rgba(200,16,46,.55);
+  box-shadow:0 0 8px rgba(var(--ac-rgb),.55);
 }
 .nav-item svg{flex-shrink:0;opacity:.55;transition:opacity .18s}
 .nav-item:hover svg{opacity:.8}
@@ -250,7 +251,7 @@ input,select,textarea,button{font-family:var(--font);font-size:14px;color:inheri
 .kpi-card::before{
   content:'';
   position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--ac),#ff4060);
+  background:linear-gradient(90deg,var(--ac),var(--purple));
   opacity:.8;border-radius:var(--radius) var(--radius) 0 0;
 }
 .kpi-label{font-size:11.5px;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;font-weight:600;margin-bottom:10px}
@@ -327,9 +328,9 @@ tbody tr:hover td{background:rgba(255,255,255,.032)}
 .form-field input::placeholder,.form-field textarea::placeholder{color:var(--text3)}
 .form-field input:focus,
 .form-field select:focus{
-  border-color:rgba(200,16,46,.5);
-  box-shadow:0 0 0 3px rgba(200,16,46,.10),inset 0 1px 3px rgba(0,0,0,.1);
-  background:rgba(200,16,46,.04);
+  border-color:rgba(var(--ac-rgb),.5);
+  box-shadow:0 0 0 3px rgba(var(--ac-rgb),.10),inset 0 1px 3px rgba(0,0,0,.1);
+  background:rgba(var(--ac-rgb),.04);
 }
 select option{background:#141929}
 
@@ -342,7 +343,7 @@ select option{background:#141929}
   padding:8px 14px;color:var(--text);outline:none;
   transition:border-color .2s,box-shadow .2s;
 }
-.filter-row input:focus{border-color:rgba(200,16,46,.5);box-shadow:0 0 0 3px rgba(200,16,46,.10)}
+.filter-row input:focus{border-color:rgba(var(--ac-rgb),.5);box-shadow:0 0 0 3px rgba(var(--ac-rgb),.10)}
 
 /* ─── BADGES ─────────────────────────────────────────── */
 .badge{
@@ -354,8 +355,8 @@ select option{background:#141929}
 .badge-green{background:rgba(46,204,138,.10);color:var(--green);border-color:rgba(46,204,138,.2)}
 .badge-red{background:rgba(224,84,84,.10);color:var(--red);border-color:rgba(224,84,84,.2)}
 .badge-amber{background:rgba(240,160,48,.10);color:var(--amber);border-color:rgba(240,160,48,.2)}
-.badge-blue{background:rgba(200,16,46,.10);color:var(--ac);border-color:rgba(200,16,46,.25)}
-.badge-purple{background:rgba(138,13,30,.12);color:#e06070;border-color:rgba(138,13,30,.25)}
+.badge-blue{background:rgba(var(--ac-rgb),.10);color:var(--ac);border-color:rgba(var(--ac-rgb),.25)}
+.badge-purple{background:rgba(var(--ac2-rgb),.12);color:#e06070;border-color:rgba(var(--ac2-rgb),.25)}
 
 /* ─── AVATAR ─────────────────────────────────────────── */
 .avatar{
@@ -412,7 +413,7 @@ select option{background:#141929}
   font-size:13px;font-weight:500;
   transition:border-color .15s;
 }
-.att-select:focus{border-color:rgba(200,16,46,.5)}
+.att-select:focus{border-color:rgba(var(--ac-rgb),.5)}
 
 /* ─── LOCKED MSG ─────────────────────────────────────── */
 .locked-msg{
@@ -450,7 +451,7 @@ select option{background:#141929}
   transition:all .15s;white-space:nowrap;line-height:1.4;
 }
 .fpill:hover{color:var(--text);background:rgba(255,255,255,.06);border-color:var(--border2)}
-.fpill.active{background:rgba(200,16,46,.16);color:var(--ac);border-color:rgba(200,16,46,.35);font-weight:600}
+.fpill.active{background:rgba(var(--ac-rgb),.16);color:var(--ac);border-color:rgba(var(--ac-rgb),.35);font-weight:600}
 /* divider */
 .fb-sep{width:1px;height:22px;background:var(--border2);margin:0 14px;flex-shrink:0;align-self:center}
 /* right side: always-visible date range */
@@ -466,9 +467,9 @@ select option{background:#141929}
   cursor:pointer;
 }
 .fb-date-field:focus-within{
-  border-color:rgba(200,16,46,.5);
-  box-shadow:0 0 0 3px rgba(200,16,46,.10);
-  background:rgba(200,16,46,.05);
+  border-color:rgba(var(--ac-rgb),.5);
+  box-shadow:0 0 0 3px rgba(var(--ac-rgb),.10);
+  background:rgba(var(--ac-rgb),.05);
 }
 .fb-date-field-lbl{
   font-size:10.5px;font-weight:700;text-transform:uppercase;
@@ -491,7 +492,7 @@ select option{background:#141929}
 /* active range badge */
 .fb-active-badge{
   display:flex;align-items:center;gap:5px;
-  background:rgba(200,16,46,.10);border:1px solid rgba(200,16,46,.25);
+  background:rgba(var(--ac-rgb),.10);border:1px solid rgba(var(--ac-rgb),.25);
   border-radius:8px;padding:4px 11px;margin-left:6px;
   font-size:12px;font-family:var(--mono);color:var(--ac);white-space:nowrap;
 }
@@ -542,6 +543,34 @@ select option{background:#141929}
   .filter-bar{padding:0 12px;overflow-x:auto;flex-wrap:nowrap}
   .fb-active-badge{display:none}
 }
+
+/* ─── THEME PICKER ───────────────────────────────────── */
+.theme-picker-wrap{position:relative}
+#themePicker{
+  display:none;position:absolute;right:0;top:calc(100% + 10px);
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:14px;padding:16px;
+  box-shadow:var(--shadow-md);z-index:300;width:230px;
+}
+.theme-picker-title{
+  font-size:10.5px;color:var(--text3);text-transform:uppercase;
+  letter-spacing:.8px;font-weight:600;margin-bottom:12px;
+}
+.theme-swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.theme-swatch{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  background:transparent;border:1px solid transparent;
+  border-radius:10px;padding:9px 6px;cursor:pointer;
+  transition:background .15s,border-color .15s;color:var(--text2);
+  font-size:11px;font-weight:500;
+}
+.theme-swatch:hover{background:rgba(255,255,255,.05);border-color:var(--border2)}
+.theme-swatch.active{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
+.theme-swatch-dot{
+  width:26px;height:26px;border-radius:50%;
+  display:block;transition:box-shadow .15s;
+}
+.theme-swatch.active .theme-swatch-dot{box-shadow:0 0 0 3px rgba(255,255,255,.28)}
 </style>
 </head>
 <body>
@@ -551,8 +580,8 @@ select option{background:#141929}
   <div class="login-box">
     <div class="login-logo">
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#1a0808"/>
-        <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#C8102E"/>
+        <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" style="fill:var(--bg3)"/>
+        <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" style="fill:var(--ac)"/>
         <circle cx="19" cy="24" r="2" fill="white"/>
         <path d="M14.5 20c1.2-1.2 2.8-1.9 4.5-1.9s3.3.7 4.5 1.9" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
         <path d="M11.5 17c2-2 4.7-3.2 7.5-3.2s5.5 1.2 7.5 3.2" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
@@ -575,7 +604,7 @@ select option{background:#141929}
 
 <!-- Loading Overlay -->
 <div id="loadingOverlay" style="display:none;position:fixed;inset:0;background:rgba(9,11,18,.88);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:14px">
-  <div style="width:36px;height:36px;border:3px solid rgba(200,16,46,.2);border-top-color:#C8102E;border-radius:50%;animation:spin .7s linear infinite"></div>
+  <div style="width:36px;height:36px;border:3px solid rgba(var(--ac-rgb),.2);border-top-color:var(--ac);border-radius:50%;animation:spin .7s linear infinite"></div>
   <div style="color:#8b90a0;font-size:13px;letter-spacing:.5px">Loading data…</div>
 </div>
 
@@ -586,8 +615,8 @@ select option{background:#141929}
     <div class="brand">
       <div class="brand-icon">
         <svg width="18" height="18" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#1a0808"/>
-          <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" fill="#C8102E"/>
+          <path d="M19 3L5 8.5v10C5 26.5 11.2 33.4 19 35c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" style="fill:var(--bg3)"/>
+          <path d="M19 3v32c7.8-1.6 14-8.5 14-16.5V8.5L19 3z" style="fill:var(--ac)"/>
           <circle cx="19" cy="24" r="2" fill="white"/>
           <path d="M14.5 20c1.2-1.2 2.8-1.9 4.5-1.9s3.3.7 4.5 1.9" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
           <path d="M11.5 17c2-2 4.7-3.2 7.5-3.2s5.5 1.2 7.5 3.2" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
@@ -604,6 +633,16 @@ select option{background:#141929}
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
       Import
     </button>
+    <div class="theme-picker-wrap">
+      <button class="btn btn-ghost btn-sm" onclick="toggleThemePicker()" title="Change color theme">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="14" cy="8" r="1.5" fill="currentColor" stroke="none"/><circle cx="16" cy="14" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.5" fill="currentColor" stroke="none"/></svg>
+        Theme
+      </button>
+      <div id="themePicker">
+        <div class="theme-picker-title">Color Theme</div>
+        <div class="theme-swatches" id="themeSwatches"></div>
+      </div>
+    </div>
     <div class="user-pill">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       <span id="topUser">—</span>
@@ -1021,6 +1060,102 @@ select option{background:#141929}
 <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
 
 <script>
+// ===== THEMES =====
+
+var THEMES = {
+  crimson: { name:'Crimson', swatch:'#C8102E',
+    '--bg':'#0a0808','--bg2':'#110b0b','--bg3':'#181010','--bg4':'#1f1414',
+    '--ac':'#C8102E','--ac2':'#a00e25','--purple':'#8a0d1e','--teal':'#C8102E',
+    '--text2':'#8a7e7e','--text3':'#574848',
+    '--glow-ac':'0 0 24px rgba(200,16,46,.22)',
+    '--glass':'rgba(18,10,10,.72)','--glass2':'rgba(24,14,14,.65)',
+    '--ac-rgb':'200,16,46','--ac2-rgb':'138,13,30' },
+  ocean: { name:'Ocean', swatch:'#4f8ef7',
+    '--bg':'#090b12','--bg2':'#0f1420','--bg3':'#141929','--bg4':'#1a2035',
+    '--ac':'#4f8ef7','--ac2':'#3a7ef0','--purple':'#9b7ff0','--teal':'#20c9b0',
+    '--text2':'#7a82a0','--text3':'#4a5270',
+    '--glow-ac':'0 0 24px rgba(79,142,247,.18)',
+    '--glass':'rgba(15,20,32,.70)','--glass2':'rgba(20,25,41,.60)',
+    '--ac-rgb':'79,142,247','--ac2-rgb':'58,126,240' },
+  emerald: { name:'Emerald', swatch:'#2ecc8a',
+    '--bg':'#080e0b','--bg2':'#0b1410','--bg3':'#101c16','--bg4':'#152320',
+    '--ac':'#2ecc8a','--ac2':'#22a870','--purple':'#20c9b0','--teal':'#2ecc8a',
+    '--text2':'#7a9088','--text3':'#4a6057',
+    '--glow-ac':'0 0 24px rgba(46,204,138,.18)',
+    '--glass':'rgba(10,18,14,.72)','--glass2':'rgba(14,24,18,.65)',
+    '--ac-rgb':'46,204,138','--ac2-rgb':'32,168,112' },
+  violet: { name:'Violet', swatch:'#9b7ff0',
+    '--bg':'#0b090f','--bg2':'#110e1a','--bg3':'#161324','--bg4':'#1c192e',
+    '--ac':'#9b7ff0','--ac2':'#7a5ed8','--purple':'#c070f0','--teal':'#9b7ff0',
+    '--text2':'#857ea0','--text3':'#524870',
+    '--glow-ac':'0 0 24px rgba(155,127,240,.18)',
+    '--glass':'rgba(14,12,22,.72)','--glass2':'rgba(18,16,30,.65)',
+    '--ac-rgb':'155,127,240','--ac2-rgb':'122,94,216' },
+  amber: { name:'Amber', swatch:'#f0a030',
+    '--bg':'#0e0b07','--bg2':'#17110a','--bg3':'#1f180d','--bg4':'#271e12',
+    '--ac':'#f0a030','--ac2':'#c07820','--purple':'#e07040','--teal':'#f0a030',
+    '--text2':'#90887a','--text3':'#605848',
+    '--glow-ac':'0 0 24px rgba(240,160,48,.18)',
+    '--glass':'rgba(20,16,10,.72)','--glass2':'rgba(26,20,14,.65)',
+    '--ac-rgb':'240,160,48','--ac2-rgb':'192,120,32' },
+  slate: { name:'Slate', swatch:'#20c9b0',
+    '--bg':'#080c0c','--bg2':'#0c1414','--bg3':'#101c1c','--bg4':'#152424',
+    '--ac':'#20c9b0','--ac2':'#18a090','--purple':'#4080c0','--teal':'#20c9b0',
+    '--text2':'#7a9090','--text3':'#4a6060',
+    '--glow-ac':'0 0 24px rgba(32,201,176,.18)',
+    '--glass':'rgba(10,16,16,.72)','--glass2':'rgba(14,22,22,.65)',
+    '--ac-rgb':'32,201,176','--ac2-rgb':'24,160,144' }
+};
+
+var currentTheme = localStorage.getItem('im_theme') || 'crimson';
+
+function applyTheme(name) {
+  var t = THEMES[name];
+  if (!t) return;
+  currentTheme = name;
+  localStorage.setItem('im_theme', name);
+  var root = document.documentElement;
+  Object.keys(t).forEach(function(k) {
+    if (k.startsWith('--')) root.style.setProperty(k, t[k]);
+  });
+  renderThemeSwatches();
+  var picker = document.getElementById('themePicker');
+  if (picker) picker.style.display = 'none';
+}
+
+function toggleThemePicker() {
+  var picker = document.getElementById('themePicker');
+  if (!picker) return;
+  var open = picker.style.display === 'block';
+  picker.style.display = open ? 'none' : 'block';
+  if (!open) renderThemeSwatches();
+}
+
+function renderThemeSwatches() {
+  var el = document.getElementById('themeSwatches');
+  if (!el) return;
+  var html = '';
+  Object.keys(THEMES).forEach(function(name) {
+    var t = THEMES[name];
+    var active = name === currentTheme;
+    html += '<button class="theme-swatch'+(active?' active':'')+'" onclick="applyTheme(\''+name+'\')">'
+      + '<span class="theme-swatch-dot" style="background:'+t.swatch+';box-shadow:0 2px 8px '+t.swatch+'55"></span>'
+      + t.name
+      + '</button>';
+  });
+  el.innerHTML = html;
+}
+
+// Close picker on outside click
+document.addEventListener('click', function(e) {
+  var wrap = document.querySelector('.theme-picker-wrap');
+  var picker = document.getElementById('themePicker');
+  if (picker && wrap && !wrap.contains(e.target)) picker.style.display = 'none';
+});
+
+// Apply saved theme immediately
+applyTheme(currentTheme);
+
 // ===== CONSTANTS =====
 
 var BASE_SALARY = 50000;
@@ -1500,8 +1635,8 @@ function renderDashCharts() {
     type:'bar',
     data:{labels:labels,datasets:[{
       label:'Sales Count',data:data,
-      backgroundColor:'rgba(200,16,46,0.60)',
-      hoverBackgroundColor:'rgba(200,16,46,0.88)',
+      backgroundColor:'rgba('+THEMES[currentTheme]['--ac-rgb']+',0.60)',
+      hoverBackgroundColor:'rgba('+THEMES[currentTheme]['--ac-rgb']+',0.88)',
       borderRadius:8,borderSkipped:false
     }]},
     options:{
